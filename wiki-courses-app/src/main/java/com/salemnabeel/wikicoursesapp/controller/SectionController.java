@@ -20,6 +20,12 @@ public class SectionController {
         return sectionService.getAllActiveSections();
     }
 
+    @GetMapping("/sections/{section-title}")
+    public Section getSectionByTitle(@PathVariable(value = "section-title") String sectionTitle) {
+
+        return sectionService.getSectionByTitle(sectionTitle);
+    }
+
     @PostMapping("/sections")
     public Section createNewSection(@Valid @RequestBody Section sectionRequest) {
 
@@ -27,9 +33,9 @@ public class SectionController {
     }
 
     @PutMapping("/sections/{section-id}")
-    public Section updateSection(@PathVariable(value = "section-id") Long sectionId,
-                                 @Valid @RequestBody Section sectionRequest) {
+    public Section updateSectionInfo(@PathVariable(value = "section-id") Long sectionId,
+                                     @Valid @RequestBody Section sectionRequest) {
 
-        return null;
+        return sectionService.updateSectionInfo(sectionId, sectionRequest);
     }
 }
