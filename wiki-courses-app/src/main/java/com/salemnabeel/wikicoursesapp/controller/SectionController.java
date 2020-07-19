@@ -3,6 +3,7 @@ package com.salemnabeel.wikicoursesapp.controller;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,10 +21,10 @@ public class SectionController {
         return sectionService.getAllActiveSections();
     }
 
-    @GetMapping("/sections/{section-title}")
-    public Section getSectionByTitle(@PathVariable(value = "section-title") String sectionTitle) {
+    @GetMapping("/sections/{section-id}")
+    public Section getSectionById(@PathVariable(value = "section-id") Long sectionId) {
 
-        return sectionService.getSectionByTitle(sectionTitle);
+        return sectionService.getSectionById(sectionId);
     }
 
     @PostMapping("/sections")
@@ -37,5 +38,11 @@ public class SectionController {
                                      @Valid @RequestBody Section sectionRequest) {
 
         return sectionService.updateSectionInfo(sectionId, sectionRequest);
+    }
+
+    @DeleteMapping("/sections/{section-id}")
+    public ResponseEntity deActivateSection(@PathVariable(value = "section-id") Long sectionId) {
+
+        return sectionService.deActivateSection(sectionId);
     }
 }

@@ -16,7 +16,6 @@ import java.util.Date;
     value = {"createdAt", "updatedAt"},
     allowGetters = true
 )
-
 @Data
 public abstract class AuditModel implements Serializable {
 

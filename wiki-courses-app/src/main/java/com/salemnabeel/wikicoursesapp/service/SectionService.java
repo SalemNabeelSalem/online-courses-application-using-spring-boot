@@ -4,6 +4,7 @@ import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class SectionService {
         return sectionRepository.getAllActiveSections();
     }
 
-    public Section getSectionByTitle(String sectionTitle) {
+    public Section getSectionById(Long sectionId) {
 
-        return sectionRepository.getSectionByTitle(sectionTitle);
+        return sectionRepository.getSectionById(sectionId);
     }
 
     public Section createNewSection(Section sectionRequest) {
@@ -43,5 +44,21 @@ public class SectionService {
         section.setTitle(sectionRequest.getTitle());
 
         return sectionRepository.save(section);
+    }
+
+    public ResponseEntity deActivateSection(Long sectionId) {
+
+        if (!sectionRepository.existsById(sectionId)) {
+
+            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+        }
+
+        Section section = sectionRepository.findById(sectionId).get();
+
+        section.setIsActive(false);
+
+        sectionRepository.save(section);
+
+        return ResponseEntity.ok().build();
     }
 }

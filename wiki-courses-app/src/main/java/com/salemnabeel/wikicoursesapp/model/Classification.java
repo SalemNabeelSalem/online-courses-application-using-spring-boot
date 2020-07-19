@@ -29,7 +29,6 @@ public class Classification extends AuditModel {
     @JsonIgnore
     private Section section;
 
-    @NotNull
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 }
