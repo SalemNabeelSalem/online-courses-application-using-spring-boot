@@ -22,7 +22,7 @@ public class SectionController {
     }
 
     @GetMapping("/sections/{section-id}")
-    public Section getSectionById(@PathVariable(value = "section-id") Long sectionId) {
+    public Section getSectionById(@PathVariable("section-id") Long sectionId) {
 
         return sectionService.getSectionById(sectionId);
     }
@@ -34,14 +34,14 @@ public class SectionController {
     }
 
     @PutMapping("/sections/{section-id}")
-    public Section updateSectionInfo(@PathVariable(value = "section-id") Long sectionId,
+    public Section updateSectionInfo(@PathVariable("section-id") Long sectionId,
                                      @Valid @RequestBody Section sectionRequest) {
 
         return sectionService.updateSectionInfo(sectionId, sectionRequest);
     }
 
     @DeleteMapping("/sections/{section-id}")
-    public ResponseEntity deActivateSection(@PathVariable(value = "section-id") Long sectionId) {
+    public ResponseEntity deActivateSection(@PathVariable("section-id") Long sectionId) {
 
         return sectionService.deActivateSection(sectionId);
     }
