@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
+import com.salemnabeel.wikicoursesapp.dto.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +17,25 @@ public class SectionController {
     private SectionService sectionService;
 
     @GetMapping("/sections")
-    public List<Section> getAllActiveSections() {
+    public List<SectionDto> getAllActiveSections() {
 
         return sectionService.getAllActiveSections();
     }
 
     @GetMapping("/sections/{section-id}")
-    public Section getSectionById(@PathVariable("section-id") Long sectionId) {
+    public SectionDto getSectionById(@PathVariable("section-id") Long sectionId) {
 
         return sectionService.getSectionById(sectionId);
     }
 
     @PostMapping("/sections")
-    public Section createNewSection(@Valid @RequestBody Section sectionRequest) {
+    public SectionDto createNewSection(@Valid @RequestBody Section sectionRequest) {
 
         return sectionService.createNewSection(sectionRequest);
     }
 
     @PutMapping("/sections/{section-id}")
-    public Section updateSectionInfo(@PathVariable("section-id") Long sectionId,
+    public SectionDto updateSectionInfo(@PathVariable("section-id") Long sectionId,
                                      @Valid @RequestBody Section sectionRequest) {
 
         return sectionService.updateSectionInfo(sectionId, sectionRequest);

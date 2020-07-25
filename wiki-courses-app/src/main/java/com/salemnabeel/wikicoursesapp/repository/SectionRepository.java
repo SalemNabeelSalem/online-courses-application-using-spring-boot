@@ -15,5 +15,5 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     List<Section> getAllActiveSections();
 
     @Query(value = "SELECT * FROM sections WHERE id = :sectionId", nativeQuery = true)
-    Section getSectionById(@Param(value = "sectionId") Long sectionId);
+    Section getSectionById(@Param("sectionId") Long sectionId);
 }

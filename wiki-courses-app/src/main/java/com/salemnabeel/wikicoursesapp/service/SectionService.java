@@ -1,5 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
+import com.salemnabeel.wikicoursesapp.converter.SectionConverter;
+import com.salemnabeel.wikicoursesapp.dto.SectionDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.repository.SectionRepository;
@@ -15,24 +17,38 @@ public class SectionService {
     @Autowired
     private SectionRepository sectionRepository;
 
-    public List<Section> getAllActiveSections() {
+    @Autowired
+    private SectionConverter sectionConverter;
 
-        return sectionRepository.getAllActiveSections();
+    public List<SectionDto> getAllActiveSections() {
+
+        List<Section> sectionsList = sectionRepository.getAllActiveSections();
+
+        return  sectionConverter.entityToDto(sectionsList);
     }
 
-    public Section getSectionById(Long sectionId) {
+    public SectionDto getSectionById(Long sectionId) {
 
-        return sectionRepository.getSectionById(sectionId);
+        if (!sectionRepository.existsById(sectionId)) {
+
+            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+        }
+
+        Section section = sectionRepository.getSectionById(sectionId);
+
+        return sectionConverter.entityToDto(section);
     }
 
-    public Section createNewSection(Section sectionRequest) {
+    public SectionDto createNewSection(Section sectionRequest) {
 
         sectionRequest.setIsActive(true);
 
-        return sectionRepository.save(sectionRequest);
+        return sectionConverter.entityToDto(
+            sectionRepository.save(sectionRequest)
+        );
     }
 
-    public Section updateSectionInfo(Long sectionId, Section sectionRequest) {
+    public SectionDto updateSectionInfo(Long sectionId, Section sectionRequest) {
 
         if (!sectionRepository.existsById(sectionId)) {
 
@@ -43,7 +59,9 @@ public class SectionService {
 
         section.setTitle(sectionRequest.getTitle());
 
-        return sectionRepository.save(section);
+        return sectionConverter.entityToDto(
+            sectionRepository.save(section)
+        );
     }
 
     public ResponseEntity deActivateSection(Long sectionId) {
