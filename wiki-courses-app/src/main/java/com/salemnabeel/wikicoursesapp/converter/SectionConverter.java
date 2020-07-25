@@ -2,6 +2,7 @@ package com.salemnabeel.wikicoursesapp.converter;
 
 import com.salemnabeel.wikicoursesapp.dto.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,13 +13,17 @@ public class SectionConverter {
 
     public SectionDto entityToDto(Section section) {
 
-        SectionDto sectionDto = new SectionDto();
+        // SectionDto sectionDto = new SectionDto();
 
-        sectionDto.setId(section.getId());
+        // sectionDto.setId(section.getId());
 
-        sectionDto.setTitle(section.getTitle());
+        // sectionDto.setTitle(section.getTitle());
 
-        sectionDto.setIsActive(section.getIsActive());
+        // sectionDto.setIsActive(section.getIsActive());
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        SectionDto sectionDto = modelMapper.map(section, SectionDto.class);
 
         return sectionDto;
     }
@@ -30,13 +35,17 @@ public class SectionConverter {
 
     public Section dtoToEntity(SectionDto sectionDto) {
 
-        Section section = new Section();
+        // Section section = new Section();
 
-        section.setId(sectionDto.getId());
+        // section.setId(sectionDto.getId());
 
-        section.setTitle(sectionDto.getTitle());
+        // section.setTitle(sectionDto.getTitle());
 
-        section.setIsActive(sectionDto.getIsActive());
+        // section.setIsActive(sectionDto.getIsActive());
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        Section section = modelMapper.map(sectionDto, Section.class);
 
         return section;
     }

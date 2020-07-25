@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class SectionDto {
 
-    Long id;
-    String title;
-    Boolean isActive;
+    private Long id;
+
+    private String title;
+
+    private Boolean isActive;
 }

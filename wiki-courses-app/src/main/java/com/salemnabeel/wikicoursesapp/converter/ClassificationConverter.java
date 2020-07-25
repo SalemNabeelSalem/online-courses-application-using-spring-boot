@@ -2,6 +2,7 @@ package com.salemnabeel.wikicoursesapp.converter;
 
 import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,13 +13,17 @@ public class ClassificationConverter {
 
     public ClassificationDto entityToDto(Classification classification) {
 
-        ClassificationDto classificationDto = new ClassificationDto();
+        // ClassificationDto classificationDto = new ClassificationDto();
 
-        classificationDto.setId(classification.getId());
+        // classificationDto.setId(classification.getId());
 
-        classificationDto.setTitle(classification.getTitle());
+        // classificationDto.setTitle(classification.getTitle());
 
-        classificationDto.setIsActive(classification.getIsActive());
+        // classificationDto.setIsActive(classification.getIsActive());
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        ClassificationDto classificationDto = modelMapper.map(classification, ClassificationDto.class);
 
         return classificationDto;
     }
@@ -33,13 +38,17 @@ public class ClassificationConverter {
 
     public Classification dtoToEntity(ClassificationDto classificationDto) {
 
-        Classification classification = new Classification();
+        // Classification classification = new Classification();
 
-        classification.setId(classificationDto.getId());
+        // classification.setId(classificationDto.getId());
 
-        classification.setTitle(classificationDto.getTitle());
+        // classification.setTitle(classificationDto.getTitle());
 
-        classification.setIsActive(classificationDto.getIsActive());
+        // classification.setIsActive(classificationDto.getIsActive());
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        Classification classification = modelMapper.map(classificationDto, Classification.class);
 
         return classification;
     }
