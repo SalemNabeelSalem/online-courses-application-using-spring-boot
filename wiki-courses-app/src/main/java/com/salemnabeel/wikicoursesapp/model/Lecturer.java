@@ -8,8 +8,8 @@ import javax.validation.constraints.Size;
 
 @Data
 @Entity
-@Table(name = "sections")
-public class Section extends AuditModel {
+@Table(name = "lecturers")
+public class Lecturer extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,15 @@ public class Section extends AuditModel {
 
     @NotNull
     @Size(max = 255, min = 1)
+    @Column(name = "full_name", length = 255, unique = true, nullable = false)
+    private String fullName;
+
+    @NotNull
+    @Size(max = 255, min = 1)
     @Column(length = 255, unique = true, nullable = false)
-    private String title;
+    private String email;
+
+    // TODO Adding The Image Property For The Lecturer Profile
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;

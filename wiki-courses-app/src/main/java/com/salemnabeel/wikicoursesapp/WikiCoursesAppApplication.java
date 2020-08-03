@@ -18,6 +18,7 @@ public class WikiCoursesAppApplication {
 
 	@GetMapping("/test-api")
 	public boolean testApi() {
+
 		return true;
 	}
 }
