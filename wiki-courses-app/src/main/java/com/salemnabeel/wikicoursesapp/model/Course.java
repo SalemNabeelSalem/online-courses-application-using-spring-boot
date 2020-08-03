@@ -11,8 +11,8 @@ import javax.validation.constraints.Size;
 
 @Data
 @Entity
-@Table(name = "classifications")
-public class Classification extends AuditModel {
+@Table(name = "courses")
+public class Course extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,27 @@ public class Classification extends AuditModel {
     @Column(length = 255, unique = true, nullable = false)
     private String title;
 
+    @NotNull
+    @Size(max = 255, min = 1)
+    @Column(name = "source_url", length = 255, unique = true, nullable = false)
+    private String sourceUrl;
+
+    // TODO: Creating The classificationId Property For Relationship With The Classification Table.
+
+    @NotNull
+    @Size(max = 255, min = 1)
+    @Column(length = 255, nullable = false)
+    private String description;
+
+    // TODO: Creating The coverImageUrl Property For Storing The Cover Image Of The Course.
+
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "section_id", nullable = false)
+    @JoinColumn(name = "lecturer_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Section section;
+    private Lecturer lecturer;
+
+    // TODO: Creating The language Property For Storing The Language Type Of The Course.
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;

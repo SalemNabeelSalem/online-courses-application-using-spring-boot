@@ -31,9 +31,8 @@ public class ClassificationConverter {
     public List<ClassificationDto> entityToDto(List<Classification> classificationsList) {
 
         return classificationsList.stream().map(
-                classification -> entityToDto(classification)
-            ).collect(Collectors.toList()
-        );
+            classification -> entityToDto(classification)
+        ).collect(Collectors.toList());
     }
 
     public Classification dtoToEntity(ClassificationDto classificationDto) {
@@ -55,8 +54,7 @@ public class ClassificationConverter {
 
     public List<Classification> dtoToEntity(List<ClassificationDto> classificationsDtoList) {
         return classificationsDtoList.stream().map(
-                classificationDto -> dtoToEntity(classificationDto)
-            ).collect(Collectors.toList()
+            classificationDto -> dtoToEntity(classificationDto)).collect(Collectors.toList()
         );
     }
 }

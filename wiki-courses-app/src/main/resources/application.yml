@@ -7,9 +7,9 @@ spring:
     username: salem_nabeel
     password: thinkoff10thinkoff
   jpa:
-    show-sql: true # log jpa queries - only for testing purpose - comment this in production.
+    show-sql: true # log jpa queries - only for testing purpose - [comment this in production].
     hibernate:
-      ddl-auto: update # only for testing purpose - comment this in production.
+      ddl-auto: update # only for testing purpose - [comment this in production].
     properties:
       hibernate: # makes hibernate generate better sql for the chosen database.
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect

@@ -25,7 +25,7 @@ public class Lecturer extends AuditModel {
     @Column(length = 255, unique = true, nullable = false)
     private String email;
 
-    // TODO Adding The Image Property For The Lecturer Profile
+    // TODO: Creating The imageUrl Property For Storing The Image Profile Of Lecturer.
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
