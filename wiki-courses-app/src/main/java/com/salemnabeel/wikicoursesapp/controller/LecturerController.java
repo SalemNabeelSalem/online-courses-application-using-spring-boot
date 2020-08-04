@@ -22,16 +22,16 @@ public class LecturerController {
         return lecturerService.getAllActiveLecturers();
     }
 
-    @GetMapping("/lecturers/{lecturer-id}")
-    public List<LecturerDto> getActiveLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
-
-        return lecturerService.getActiveLecturerById(lecturerId);
-    }
-
     @PostMapping("/lecturers")
     public LecturerDto createNewLecturer(@Valid @RequestBody Lecturer lecturerRequest) {
 
         return lecturerService.createNewLecturer(lecturerRequest);
+    }
+
+    @GetMapping("/lecturers/{lecturer-id}")
+    public List<LecturerDto> getActiveLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
+
+        return lecturerService.getActiveLecturerById(lecturerId);
     }
 
     @PutMapping("/lecturers/{lecturer-id}")

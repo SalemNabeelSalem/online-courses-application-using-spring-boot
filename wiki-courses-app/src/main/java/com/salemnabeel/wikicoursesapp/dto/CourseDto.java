@@ -2,6 +2,8 @@ package com.salemnabeel.wikicoursesapp.dto;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class CourseDto {
 
@@ -13,5 +15,5 @@ public class CourseDto {
 
     private String description;
 
-    private Boolean isActive;
+    private Date createdAt;
 }

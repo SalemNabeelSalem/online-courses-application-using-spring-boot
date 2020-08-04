@@ -27,6 +27,15 @@ public class LecturerService {
         return lecturerConverter.entityToDto(lecturersList);
     }
 
+    public LecturerDto createNewLecturer(Lecturer lecturerRequest) {
+
+        lecturerRequest.setIsActive(true);
+
+        return lecturerConverter.entityToDto(
+            lecturerRepository.save(lecturerRequest)
+        );
+    }
+
     public List<LecturerDto> getActiveLecturerById(Long lecturerId) {
 
         /*
@@ -41,20 +50,16 @@ public class LecturerService {
 
                 throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
             }
+
+            if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
+
+                throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
+            }
         */
 
         List<Lecturer> lecturersList = lecturerRepository.getActiveLecturerById(lecturerId);
 
         return lecturerConverter.entityToDto(lecturersList);
-    }
-
-    public LecturerDto createNewLecturer(Lecturer lecturerRequest) {
-
-        lecturerRequest.setIsActive(true);
-
-        return lecturerConverter.entityToDto(
-            lecturerRepository.save(lecturerRequest)
-        );
     }
 
     public LecturerDto updateLecturerInfoById(Long lecturerId, Lecturer lecturerRequest) {
