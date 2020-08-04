@@ -22,28 +22,28 @@ public class SectionController {
         return sectionService.getAllActiveSections();
     }
 
-    @GetMapping("/sections/{section-id}")
-    public SectionDto getSectionById(@PathVariable("section-id") Long sectionId) {
-
-        return sectionService.getSectionById(sectionId);
-    }
-
     @PostMapping("/sections")
     public SectionDto createNewSection(@Valid @RequestBody Section sectionRequest) {
 
         return sectionService.createNewSection(sectionRequest);
     }
 
-    @PutMapping("/sections/{section-id}")
-    public SectionDto updateSectionInfo(@PathVariable("section-id") Long sectionId,
-                                     @Valid @RequestBody Section sectionRequest) {
+    @GetMapping("/sections/{section-id}")
+    public List<SectionDto> getActiveSectionById(@PathVariable("section-id") Long sectionId) {
 
-        return sectionService.updateSectionInfo(sectionId, sectionRequest);
+        return sectionService.getActiveSectionById(sectionId);
+    }
+
+    @PutMapping("/sections/{section-id}")
+    public SectionDto updateSectionInfoById(@PathVariable("section-id") Long sectionId,
+                                            @Valid @RequestBody Section sectionRequest) {
+
+        return sectionService.updateSectionInfoById(sectionId, sectionRequest);
     }
 
     @DeleteMapping("/sections/{section-id}")
-    public ResponseEntity deActivateSection(@PathVariable("section-id") Long sectionId) {
+    public ResponseEntity deActivateSectionById(@PathVariable("section-id") Long sectionId) {
 
-        return sectionService.deActivateSection(sectionId);
+        return sectionService.deActivateSectionById(sectionId);
     }
 }

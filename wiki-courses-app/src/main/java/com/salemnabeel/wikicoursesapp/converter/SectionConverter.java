@@ -30,7 +30,9 @@ public class SectionConverter {
 
     public List<SectionDto> entityToDto(List<Section> sectionsList) {
 
-        return sectionsList.stream().map(section -> entityToDto(section)).collect(Collectors.toList());
+        return sectionsList.stream().map(
+            section -> entityToDto(section)).collect(Collectors.toList()
+        );
     }
 
     public Section dtoToEntity(SectionDto sectionDto) {
@@ -52,6 +54,8 @@ public class SectionConverter {
 
     public List<Section> dtoToEntity(List<SectionDto> sectionsDtoList) {
 
-        return sectionsDtoList.stream().map(sectionDto -> dtoToEntity(sectionDto)).collect(Collectors.toList());
+        return sectionsDtoList.stream().map(
+            sectionDto -> dtoToEntity(sectionDto)).collect(Collectors.toList()
+        );
     }
 }

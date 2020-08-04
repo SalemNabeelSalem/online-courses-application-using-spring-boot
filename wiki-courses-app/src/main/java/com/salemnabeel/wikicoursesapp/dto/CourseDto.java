@@ -15,5 +15,7 @@ public class CourseDto {
 
     private String description;
 
-    private Date createdAt;
+    private String lecturerName;
+
+    private Date createdAtDate;
 }

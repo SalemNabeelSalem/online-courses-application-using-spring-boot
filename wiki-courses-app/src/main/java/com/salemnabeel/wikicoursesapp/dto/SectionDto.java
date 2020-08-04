@@ -8,6 +8,4 @@ public class SectionDto {
     private Long id;
 
     private String title;
-
-    private Boolean isActive;
 }

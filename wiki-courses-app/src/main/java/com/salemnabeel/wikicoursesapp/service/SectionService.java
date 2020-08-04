@@ -27,18 +27,6 @@ public class SectionService {
         return  sectionConverter.entityToDto(sectionsList);
     }
 
-    public SectionDto getSectionById(Long sectionId) {
-
-        if (!sectionRepository.existsById(sectionId)) {
-
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
-        }
-
-        Section section = sectionRepository.getSectionById(sectionId);
-
-        return sectionConverter.entityToDto(section);
-    }
-
     public SectionDto createNewSection(Section sectionRequest) {
 
         sectionRequest.setIsActive(true);
@@ -48,14 +36,21 @@ public class SectionService {
         );
     }
 
-    public SectionDto updateSectionInfo(Long sectionId, Section sectionRequest) {
+    public List<SectionDto> getActiveSectionById(Long sectionId) {
 
-        if (!sectionRepository.existsById(sectionId)) {
+        List<Section> sectionsList = sectionRepository.getActiveSectionById(sectionId);
+
+        return sectionConverter.entityToDto(sectionsList);
+    }
+
+    public SectionDto updateSectionInfoById(Long sectionId, Section sectionRequest) {
+
+        if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
             throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
         }
 
-        Section section = sectionRepository.findById(sectionId).get();
+        Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
 
         section.setTitle(sectionRequest.getTitle());
 
@@ -64,14 +59,14 @@ public class SectionService {
         );
     }
 
-    public ResponseEntity deActivateSection(Long sectionId) {
+    public ResponseEntity deActivateSectionById(Long sectionId) {
 
-        if (!sectionRepository.existsById(sectionId)) {
+        if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
             throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
         }
 
-        Section section = sectionRepository.findById(sectionId).get();
+        Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
 
         section.setIsActive(false);
 

@@ -12,16 +12,16 @@ import java.util.List;
 public interface ClassificationRepository extends JpaRepository<Classification, Long> {
 
     @Query(
-        value = "SELECT * FROM classifications WHERE is_active = 1 AND section_id = :sectionId ORDER BY created_at DESC",
+        value = "SELECT classification.* FROM classifications classification, sections section WHERE classification.section_id = section.id AND classification.section_id = :sectionId AND section.is_active = 1 AND classification.is_active = 1 ORDER BY created_at DESC",
         nativeQuery = true
     )
     List<Classification> getAllActiveClassificationsBySectionId(@Param("sectionId") Long sectionId);
 
     @Query(
-        value = "SELECT * FROM classifications WHERE id = :classificationId AND section_id = :sectionId",
+        value = "SELECT classification.* FROM classifications classification, sections section WHERE classification.section_id = section.id AND classification.id = :classificationId AND classification.section_id = :sectionId AND section.is_active = 1 AND classification.is_active = 1",
         nativeQuery = true
     )
-    Classification getClassificationById(
+    List<Classification> getActiveClassificationBySectionId(
         @Param("sectionId") Long sectionId, @Param("classificationId") Long classificationId
     );
 }

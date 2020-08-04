@@ -2,6 +2,7 @@ package com.salemnabeel.wikicoursesapp.converter;
 
 import com.salemnabeel.wikicoursesapp.dto.CourseDto;
 import com.salemnabeel.wikicoursesapp.model.Course;
+import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,25 @@ public class CourseConverter {
 
     public CourseDto entityToDto(Course course) {
 
-        ModelMapper modelMapper = new ModelMapper();
+        // ModelMapper modelMapper = new ModelMapper();
 
-        CourseDto courseDto = modelMapper.map(course, CourseDto.class);
+        // CourseDto courseDto = modelMapper.map(course, CourseDto.class);
+
+        CourseDto courseDto = new CourseDto();
+
+        courseDto.setId(course.getId());
+
+        courseDto.setTitle(course.getTitle());
+
+        courseDto.setSourceUrl(course.getSourceUrl());
+
+        courseDto.setDescription(course.getDescription());
+
+        Lecturer lecturer = course.getLecturer();
+
+        courseDto.setLecturerName(lecturer.getFullName());
+
+        courseDto.setCreatedAtDate(course.getCreatedAt());
 
         return courseDto;
     }

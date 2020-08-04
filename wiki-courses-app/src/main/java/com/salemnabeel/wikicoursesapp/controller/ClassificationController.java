@@ -24,16 +24,16 @@ public class ClassificationController {
 
     @PostMapping("/sections/{section-id}/classifications")
     public ClassificationDto createNewClassificationBySectionId(@PathVariable("section-id") Long sectionId,
-                                                 @Valid @RequestBody Classification classificationRequest) {
+                                                        @Valid @RequestBody Classification classificationRequest) {
 
         return classificationService.createNewClassificationBySectionId(sectionId, classificationRequest);
     }
 
     @GetMapping("/sections/{section-id}/classifications/{classification-id}")
-    public ClassificationDto getClassificationById(@PathVariable("section-id") Long sectionId,
-                                                   @PathVariable("classification-id") Long classificationId) {
+    public List<ClassificationDto> getActiveClassificationBySectionId(@PathVariable("section-id") Long sectionId,
+                                                        @PathVariable("classification-id") Long classificationId) {
 
-        return classificationService.getClassificationById(sectionId, classificationId);
+        return classificationService.getActiveClassificationBySectionId(sectionId, classificationId);
     }
 
     @PutMapping("/sections/{section-id}/classifications/{classification-id}")

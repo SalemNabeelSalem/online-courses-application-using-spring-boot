@@ -27,11 +27,6 @@ public class ClassificationService {
 
     public List<ClassificationDto> getAllActiveClassificationsBySectionId(Long sectionId) {
 
-        if (!sectionRepository.existsById(sectionId)) {
-
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
-        }
-
         List<Classification> classificationsList = classificationRepository.getAllActiveClassificationsBySectionId(sectionId);
 
         return classificationConverter.entityToDto(classificationsList);
@@ -39,33 +34,25 @@ public class ClassificationService {
 
     public ClassificationDto createNewClassificationBySectionId(Long sectionId, Classification classificationRequest) {
 
-        if (!sectionRepository.existsById(sectionId)) {
+        if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
             throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
         }
 
-        Section section = sectionRepository.getSectionById(sectionId);
+        Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
 
         classificationRequest.setIsActive(true);
 
         classificationRequest.setSection(section);
 
-        return classificationConverter.entityToDto(classificationRepository.save(classificationRequest));
+        return classificationConverter.entityToDto(
+            classificationRepository.save(classificationRequest)
+        );
     }
 
-    public ClassificationDto getClassificationById(Long sectionId, Long classificationId) {
+    public List<ClassificationDto> getActiveClassificationBySectionId(Long sectionId, Long classificationId) {
 
-        if (!sectionRepository.existsById(sectionId)) {
-
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
-        }
-
-        Classification classification = classificationRepository.getClassificationById(sectionId, classificationId);
-
-        if (classification == null) {
-
-            throw new ResourceNotFoundException("classification id: " + classificationId + " not found.");
-        }
+        List<Classification> classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId);
 
         return classificationConverter.entityToDto(classification);
     }
@@ -73,36 +60,28 @@ public class ClassificationService {
     public ClassificationDto updateClassificationInfoBySectionId(Long sectionId, Long classificationId,
                                                                  Classification classificationRequest) {
 
-        if (!sectionRepository.existsById(sectionId)) {
+        if (classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).isEmpty()) {
 
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
-        Classification classification = classificationRepository.getClassificationById(sectionId, classificationId);
-
-        if(classification == null) {
-
-            throw new ResourceNotFoundException("classification id: " + classificationId + " not found.");
-        }
+        Classification classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).get(0);
 
         classification.setTitle(classificationRequest.getTitle());
 
-        return classificationConverter.entityToDto(classificationRepository.save(classification));
+        return classificationConverter.entityToDto(
+            classificationRepository.save(classification)
+        );
     }
 
     public ResponseEntity deActivateClassificationBySectionId(Long sectionId, Long classificationId) {
 
-        if (!sectionRepository.existsById(sectionId)) {
+        if (classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).isEmpty()) {
 
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
-        Classification classification = classificationRepository.getClassificationById(sectionId, classificationId);
-
-        if (classification == null) {
-
-            throw new ResourceNotFoundException("classification id: " + classificationId + " not found.");
-        }
+        Classification classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).get(0);
 
         classification.setIsActive(false);
 

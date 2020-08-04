@@ -14,6 +14,6 @@ public interface SectionRepository extends JpaRepository<Section, Long> {
     @Query(value = "SELECT * FROM sections WHERE is_active = 1 ORDER BY created_at DESC", nativeQuery = true)
     List<Section> getAllActiveSections();
 
-    @Query(value = "SELECT * FROM sections WHERE id = :sectionId", nativeQuery = true)
-    Section getSectionById(@Param("sectionId") Long sectionId);
+    @Query(value = "SELECT * FROM sections WHERE id = :sectionId AND is_active = 1", nativeQuery = true)
+    List<Section> getActiveSectionById(@Param("sectionId") Long sectionId);
 }
