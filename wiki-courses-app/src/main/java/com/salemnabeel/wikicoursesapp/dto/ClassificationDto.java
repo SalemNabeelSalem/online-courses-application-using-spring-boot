@@ -9,7 +9,5 @@ public class ClassificationDto {
 
     private String title;
 
-    private SectionDto section;
-
-    private Boolean isActive;
+    private String sectionTitle;
 }

@@ -45,7 +45,9 @@ public class CourseService {
 
         courseRequest.setLecturer(lecturer);
 
-        return courseConverter.entityToDto(courseRepository.save(courseRequest));
+        return courseConverter.entityToDto(
+            courseRepository.save(courseRequest)
+        );
     }
 
     public List<CourseDto> getActiveCourseByLecturerId(Long lecturerId, Long courseId) {

@@ -15,7 +15,11 @@ public class CourseDto {
 
     private String description;
 
-    private String lecturerName;
+    private String classification;
+
+    private String section;
+
+    private String lecturer;
 
     private Date createdAtDate;
 }

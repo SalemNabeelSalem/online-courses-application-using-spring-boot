@@ -28,7 +28,13 @@ public class Course extends AuditModel {
     @Column(name = "source_url", length = 255, unique = true, nullable = false)
     private String sourceUrl;
 
-    // TODO: Creating The classificationId Property For Relationship With The Classification Table.
+    // TO-DO: Creating The classificationId Property For Relationship With The Classification Table.
+
+    @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "classification_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Classification classification;
 
     @NotNull
     @Size(max = 255, min = 1)

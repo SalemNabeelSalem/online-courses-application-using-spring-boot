@@ -2,6 +2,7 @@ package com.salemnabeel.wikicoursesapp.converter;
 
 import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
+import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,17 +14,19 @@ public class ClassificationConverter {
 
     public ClassificationDto entityToDto(Classification classification) {
 
-        // ClassificationDto classificationDto = new ClassificationDto();
+        // ModelMapper modelMapper = new ModelMapper();
 
-        // classificationDto.setId(classification.getId());
+        // ClassificationDto classificationDto = modelMapper.map(classification, ClassificationDto.class);
 
-        // classificationDto.setTitle(classification.getTitle());
+        ClassificationDto classificationDto = new ClassificationDto();
 
-        // classificationDto.setIsActive(classification.getIsActive());
+        classificationDto.setId(classification.getId());
 
-        ModelMapper modelMapper = new ModelMapper();
+        classificationDto.setTitle(classification.getTitle());
 
-        ClassificationDto classificationDto = modelMapper.map(classification, ClassificationDto.class);
+        Section section = classification.getSection();
+
+        classificationDto.setSectionTitle(section.getTitle());
 
         return classificationDto;
     }

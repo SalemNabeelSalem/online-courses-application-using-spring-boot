@@ -1,8 +1,10 @@
 package com.salemnabeel.wikicoursesapp.converter;
 
 import com.salemnabeel.wikicoursesapp.dto.CourseDto;
+import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Course;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
+import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +30,17 @@ public class CourseConverter {
 
         courseDto.setDescription(course.getDescription());
 
+        Classification classification = course.getClassification();
+
+        courseDto.setClassification(classification.getTitle());
+
+        Section section = classification.getSection();
+
+        courseDto.setSection(section.getTitle());
+
         Lecturer lecturer = course.getLecturer();
 
-        courseDto.setLecturerName(lecturer.getFullName());
+        courseDto.setLecturer(lecturer.getFullName());
 
         courseDto.setCreatedAtDate(course.getCreatedAt());
 
