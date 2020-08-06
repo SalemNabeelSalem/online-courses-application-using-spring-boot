@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.converter.LecturerConverter;
+import com.salemnabeel.wikicoursesapp.mapper.LecturerMapper;
 import com.salemnabeel.wikicoursesapp.dto.LecturerDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
@@ -18,20 +18,20 @@ public class LecturerService {
     private LecturerRepository lecturerRepository;
 
     @Autowired
-    private LecturerConverter lecturerConverter;
+    private LecturerMapper lecturerMapper;
 
     public List<LecturerDto> getAllActiveLecturers() {
 
         List<Lecturer> lecturersList = lecturerRepository.getAllActiveLecturers();
 
-        return lecturerConverter.entityToDto(lecturersList);
+        return lecturerMapper.entityToDto(lecturersList);
     }
 
     public LecturerDto createNewLecturer(Lecturer lecturerRequest) {
 
         lecturerRequest.setIsActive(true);
 
-        return lecturerConverter.entityToDto(
+        return lecturerMapper.entityToDto(
             lecturerRepository.save(lecturerRequest)
         );
     }
@@ -59,7 +59,7 @@ public class LecturerService {
 
         List<Lecturer> lecturersList = lecturerRepository.getActiveLecturerById(lecturerId);
 
-        return lecturerConverter.entityToDto(lecturersList);
+        return lecturerMapper.entityToDto(lecturersList);
     }
 
     public LecturerDto updateLecturerInfoById(Long lecturerId, Lecturer lecturerRequest) {
@@ -75,7 +75,7 @@ public class LecturerService {
 
         lecturer.setEmail(lecturerRequest.getEmail());
 
-        return lecturerConverter.entityToDto(
+        return lecturerMapper.entityToDto(
             lecturerRepository.save(lecturer)
         );
     }

@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.converter;
+package com.salemnabeel.wikicoursesapp.mapper;
 
 import com.salemnabeel.wikicoursesapp.dto.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SectionConverter {
+public class SectionMapper {
 
     public SectionDto entityToDto(Section section) {
 

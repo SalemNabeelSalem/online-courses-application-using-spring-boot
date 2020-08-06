@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.converter.CourseConverter;
+import com.salemnabeel.wikicoursesapp.mapper.CourseMapper;
 import com.salemnabeel.wikicoursesapp.dto.CourseDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Course;
@@ -23,13 +23,13 @@ public class CourseService {
     private LecturerRepository lecturerRepository;
 
     @Autowired
-    private CourseConverter courseConverter;
+    private CourseMapper courseMapper;
 
     public List<CourseDto> getAllActiveCoursesByLecturerId(Long lecturerId) {
 
         List<Course> coursesList = courseRepository.getAllActiveCoursesByLecturerId(lecturerId);
 
-        return courseConverter.entityToDto(coursesList);
+        return courseMapper.entityToDto(coursesList);
     }
 
     public CourseDto createNewCourseByLecturerId(Long lecturerId, Course courseRequest) {
@@ -45,7 +45,7 @@ public class CourseService {
 
         courseRequest.setLecturer(lecturer);
 
-        return courseConverter.entityToDto(
+        return courseMapper.entityToDto(
             courseRepository.save(courseRequest)
         );
     }
@@ -54,7 +54,7 @@ public class CourseService {
 
         List<Course> coursesList = courseRepository.getActiveCourseByLecturerId(lecturerId, courseId);
 
-        return courseConverter.entityToDto(coursesList);
+        return courseMapper.entityToDto(coursesList);
     }
 
     public CourseDto updateCourseInfoByLecturerId(Long lecturerId, Long courseId, Course courseRequest) {
@@ -72,7 +72,7 @@ public class CourseService {
 
         course.setDescription(courseRequest.getDescription());
 
-        return courseConverter.entityToDto(
+        return courseMapper.entityToDto(
             courseRepository.save(course)
         );
     }

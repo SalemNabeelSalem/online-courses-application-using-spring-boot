@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.converter.SectionConverter;
+import com.salemnabeel.wikicoursesapp.mapper.SectionMapper;
 import com.salemnabeel.wikicoursesapp.dto.SectionDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;
@@ -18,20 +18,20 @@ public class SectionService {
     private SectionRepository sectionRepository;
 
     @Autowired
-    private SectionConverter sectionConverter;
+    private SectionMapper sectionMapper;
 
     public List<SectionDto> getAllActiveSections() {
 
         List<Section> sectionsList = sectionRepository.getAllActiveSections();
 
-        return  sectionConverter.entityToDto(sectionsList);
+        return  sectionMapper.entityToDto(sectionsList);
     }
 
     public SectionDto createNewSection(Section sectionRequest) {
 
         sectionRequest.setIsActive(true);
 
-        return sectionConverter.entityToDto(
+        return sectionMapper.entityToDto(
             sectionRepository.save(sectionRequest)
         );
     }
@@ -40,7 +40,7 @@ public class SectionService {
 
         List<Section> sectionsList = sectionRepository.getActiveSectionById(sectionId);
 
-        return sectionConverter.entityToDto(sectionsList);
+        return sectionMapper.entityToDto(sectionsList);
     }
 
     public SectionDto updateSectionInfoById(Long sectionId, Section sectionRequest) {
@@ -54,7 +54,7 @@ public class SectionService {
 
         section.setTitle(sectionRequest.getTitle());
 
-        return sectionConverter.entityToDto(
+        return sectionMapper.entityToDto(
             sectionRepository.save(section)
         );
     }

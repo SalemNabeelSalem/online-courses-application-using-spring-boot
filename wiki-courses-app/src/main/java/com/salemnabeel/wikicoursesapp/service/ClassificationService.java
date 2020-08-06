@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.converter.ClassificationConverter;
+import com.salemnabeel.wikicoursesapp.mapper.ClassificationMapper;
 import com.salemnabeel.wikicoursesapp.dto.ClassificationCreateNew;
 import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
@@ -24,13 +24,13 @@ public class ClassificationService {
     private SectionRepository sectionRepository;
 
     @Autowired
-    private ClassificationConverter classificationConverter;
+    private ClassificationMapper classificationMapper;
 
     public List<ClassificationDto> getAllActiveClassificationsBySectionId(Long sectionId) {
 
         List<Classification> classificationsList = classificationRepository.getAllActiveClassificationsBySectionId(sectionId);
 
-        return classificationConverter.entityToDto(classificationsList);
+        return classificationMapper.entityToDto(classificationsList);
     }
 
     public ClassificationDto createNewClassification(ClassificationCreateNew classificationCreateNewRequest) {
@@ -54,7 +54,7 @@ public class ClassificationService {
 
         classification.setSection(section);
 
-        return classificationConverter.entityToDto(
+        return classificationMapper.entityToDto(
             classificationRepository.save(classification)
         );
     }
@@ -63,7 +63,7 @@ public class ClassificationService {
 
         List<Classification> classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId);
 
-        return classificationConverter.entityToDto(classification);
+        return classificationMapper.entityToDto(classification);
     }
 
     public ClassificationDto updateClassificationInfoBySectionId(Long sectionId, Long classificationId,
@@ -78,7 +78,7 @@ public class ClassificationService {
 
         classification.setTitle(classificationRequest.getTitle());
 
-        return classificationConverter.entityToDto(
+        return classificationMapper.entityToDto(
             classificationRepository.save(classification)
         );
     }

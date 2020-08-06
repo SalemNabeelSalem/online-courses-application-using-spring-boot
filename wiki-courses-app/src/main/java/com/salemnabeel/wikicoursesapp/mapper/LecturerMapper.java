@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.converter;
+package com.salemnabeel.wikicoursesapp.mapper;
 
 import com.salemnabeel.wikicoursesapp.dto.LecturerDto;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class LecturerConverter {
+public class LecturerMapper {
 
     public LecturerDto entityToDto(Lecturer lecturer) {
 

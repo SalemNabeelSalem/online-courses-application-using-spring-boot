@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.converter;
+package com.salemnabeel.wikicoursesapp.mapper;
 
 import com.salemnabeel.wikicoursesapp.dto.CourseDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CourseConverter {
+public class CourseMapper {
 
     public CourseDto entityToDto(Course course) {
 
