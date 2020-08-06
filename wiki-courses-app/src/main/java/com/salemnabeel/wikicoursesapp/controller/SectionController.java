@@ -22,6 +22,7 @@ public class SectionController {
         return sectionService.getAllActiveSections();
     }
 
+    // TODO: Make This URL For The Admin Access Only.
     @PostMapping("/sections")
     public SectionDto createNewSection(@Valid @RequestBody Section sectionRequest) {
 
@@ -34,6 +35,7 @@ public class SectionController {
         return sectionService.getActiveSectionById(sectionId);
     }
 
+    // TODO: Make This URL For The Admin Access Only.
     @PutMapping("/sections/{section-id}")
     public SectionDto updateSectionInfoById(@PathVariable("section-id") Long sectionId,
                                             @Valid @RequestBody Section sectionRequest) {
@@ -41,6 +43,7 @@ public class SectionController {
         return sectionService.updateSectionInfoById(sectionId, sectionRequest);
     }
 
+    // TODO: Make This URL For The Admin Access Only.
     @DeleteMapping("/sections/{section-id}")
     public ResponseEntity deActivateSectionById(@PathVariable("section-id") Long sectionId) {
 

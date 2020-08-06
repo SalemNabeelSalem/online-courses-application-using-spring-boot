@@ -22,6 +22,7 @@ public class LecturerController {
         return lecturerService.getAllActiveLecturers();
     }
 
+    // TODO: Make This URL For The Admin Access Only.
     @PostMapping("/lecturers")
     public LecturerDto createNewLecturer(@Valid @RequestBody Lecturer lecturerRequest) {
 
@@ -34,6 +35,7 @@ public class LecturerController {
         return lecturerService.getActiveLecturerById(lecturerId);
     }
 
+    // TODO: Make This URL For The Admin Access Only.
     @PutMapping("/lecturers/{lecturer-id}")
     public LecturerDto updateLecturerInfoById(@PathVariable("lecturer-id") Long lecturerId,
                                               @Valid @RequestBody Lecturer lecturerRequest) {
@@ -41,6 +43,7 @@ public class LecturerController {
         return lecturerService.updateLecturerInfoById(lecturerId, lecturerRequest);
     }
 
+    // TODO: Make This URL For The Admin Access Only.
     @DeleteMapping("/lecturers/{lecturer-id}")
     public ResponseEntity deActivateLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
 
