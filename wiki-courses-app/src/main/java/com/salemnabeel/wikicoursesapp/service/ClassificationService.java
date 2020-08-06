@@ -1,6 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.converter.ClassificationConverter;
+import com.salemnabeel.wikicoursesapp.dto.ClassificationCreateNew;
 import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Classification;
@@ -32,7 +33,11 @@ public class ClassificationService {
         return classificationConverter.entityToDto(classificationsList);
     }
 
-    public ClassificationDto createNewClassificationBySectionId(Long sectionId, Classification classificationRequest) {
+    public ClassificationDto createNewClassification(ClassificationCreateNew classificationCreateNewRequest) {
+
+        Long sectionId = classificationCreateNewRequest.getSectionId();
+
+        String classificationTitle = classificationCreateNewRequest.getTitle();
 
         if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
@@ -41,12 +46,16 @@ public class ClassificationService {
 
         Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
 
-        classificationRequest.setIsActive(true);
+        Classification classification = new Classification();
 
-        classificationRequest.setSection(section);
+        classification.setIsActive(true);
+
+        classification.setTitle(classificationTitle);
+
+        classification.setSection(section);
 
         return classificationConverter.entityToDto(
-            classificationRepository.save(classificationRequest)
+            classificationRepository.save(classification)
         );
     }
 
@@ -89,4 +98,6 @@ public class ClassificationService {
 
         return ResponseEntity.ok().build();
     }
+
+
 }

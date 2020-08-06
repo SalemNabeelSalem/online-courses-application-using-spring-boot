@@ -16,19 +16,22 @@ public class ClassificationConverter {
 
         // ModelMapper modelMapper = new ModelMapper();
 
-        // ClassificationDto classificationDto = modelMapper.map(classification, ClassificationDto.class);
+        // ClassificationDTO classificationDTO = modelMapper.map(classification, classificationDTO.class);
 
-        ClassificationDto classificationDto = new ClassificationDto();
+        ClassificationDto classificationDTO = new ClassificationDto();
 
-        classificationDto.setId(classification.getId());
+        // For Classification Id
+        classificationDTO.setId(classification.getId());
 
-        classificationDto.setTitle(classification.getTitle());
+        // For Classification Title
+        classificationDTO.setTitle(classification.getTitle());
 
         Section section = classification.getSection();
 
-        classificationDto.setSectionTitle(section.getTitle());
+        // For Section Title
+        classificationDTO.setSectionTitle(section.getTitle());
 
-        return classificationDto;
+        return classificationDTO;
     }
 
     public List<ClassificationDto> entityToDto(List<Classification> classificationsList) {
@@ -42,11 +45,11 @@ public class ClassificationConverter {
 
         // Classification classification = new Classification();
 
-        // classification.setId(classificationDto.getId());
+        // classification.setId(classificationDTO.getId());
 
-        // classification.setTitle(classificationDto.getTitle());
+        // classification.setTitle(classificationDTO.getTitle());
 
-        // classification.setIsActive(classificationDto.getIsActive());
+        // classification.setIsActive(classificationDTO.getIsActive());
 
         ModelMapper modelMapper = new ModelMapper();
 
@@ -57,7 +60,7 @@ public class ClassificationConverter {
 
     public List<Classification> dtoToEntity(List<ClassificationDto> classificationsDtoList) {
         return classificationsDtoList.stream().map(
-            classificationDto -> dtoToEntity(classificationDto)).collect(Collectors.toList()
+                classificationDto -> dtoToEntity(classificationDto)).collect(Collectors.toList()
         );
     }
 }

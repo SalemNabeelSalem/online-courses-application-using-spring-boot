@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
+import com.salemnabeel.wikicoursesapp.dto.ClassificationCreateNew;
 import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.service.ClassificationService;
@@ -22,24 +23,23 @@ public class ClassificationController {
         return classificationService.getAllActiveClassificationsBySectionId(sectionId);
     }
 
-    @PostMapping("/sections/{section-id}/classifications")
-    public ClassificationDto createNewClassificationBySectionId(@PathVariable("section-id") Long sectionId,
-                                                        @Valid @RequestBody Classification classificationRequest) {
+    @PostMapping("/classifications")
+    public ClassificationDto createNewClassification(@RequestBody ClassificationCreateNew classificationCreateNewRequest) {
 
-        return classificationService.createNewClassificationBySectionId(sectionId, classificationRequest);
+        return classificationService.createNewClassification(classificationCreateNewRequest);
     }
 
     @GetMapping("/sections/{section-id}/classifications/{classification-id}")
     public List<ClassificationDto> getActiveClassificationBySectionId(@PathVariable("section-id") Long sectionId,
-                                                        @PathVariable("classification-id") Long classificationId) {
+                                                                      @PathVariable("classification-id") Long classificationId) {
 
         return classificationService.getActiveClassificationBySectionId(sectionId, classificationId);
     }
 
     @PutMapping("/sections/{section-id}/classifications/{classification-id}")
     public ClassificationDto updateClassificationInfoBySectionId(@PathVariable("section-id") Long sectionId,
-                                                 @PathVariable("classification-id") Long classificationId,
-                                                 @Valid @RequestBody Classification classificationRequest) {
+                                                                 @PathVariable("classification-id") Long classificationId,
+                                                                 @Valid @RequestBody Classification classificationRequest) {
 
         return classificationService.updateClassificationInfoBySectionId(
             sectionId, classificationId, classificationRequest
