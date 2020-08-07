@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.mapper.SectionMapper;
-import com.salemnabeel.wikicoursesapp.dto.SectionDto;
+import com.salemnabeel.wikicoursesapp.dto.view.SectionDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.repository.SectionRepository;
@@ -47,12 +47,14 @@ public class SectionService {
 
         if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
         Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
 
         section.setTitle(sectionRequest.getTitle());
+
+        section.setCoverImageLink(sectionRequest.getCoverImageLink());
 
         return sectionMapper.entityToDto(
             sectionRepository.save(section)
@@ -63,7 +65,7 @@ public class SectionService {
 
         if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
         Section section = sectionRepository.getActiveSectionById(sectionId).get(0);

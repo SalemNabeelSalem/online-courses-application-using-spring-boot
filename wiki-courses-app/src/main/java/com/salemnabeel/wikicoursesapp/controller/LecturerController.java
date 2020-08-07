@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.LecturerDto;
+import com.salemnabeel.wikicoursesapp.dto.view.LecturerDto;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;

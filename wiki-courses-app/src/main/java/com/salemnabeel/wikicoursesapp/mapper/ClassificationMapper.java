@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.mapper;
 
-import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
+import com.salemnabeel.wikicoursesapp.dto.view.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
@@ -16,22 +16,25 @@ public class ClassificationMapper {
 
         // ModelMapper modelMapper = new ModelMapper();
 
-        // ClassificationDTO classificationDTO = modelMapper.map(classification, classificationDTO.class);
+        // ClassificationDTO classificationDto = modelMapper.map(classification, classificationDto.class);
 
-        ClassificationDto classificationDTO = new ClassificationDto();
+        ClassificationDto classificationDto = new ClassificationDto();
 
         // For Classification Id
-        classificationDTO.setId(classification.getId());
+        classificationDto.setId(classification.getId());
 
         // For Classification Title
-        classificationDTO.setTitle(classification.getTitle());
+        classificationDto.setTitle(classification.getTitle());
 
         Section section = classification.getSection();
 
         // For Section Title
-        classificationDTO.setSectionTitle(section.getTitle());
+        classificationDto.setSectionTitle(section.getTitle());
 
-        return classificationDTO;
+        // For Classification Cover Image Link
+        classificationDto.setCoverImageLink(classification.getCoverImageLink());
+
+        return classificationDto;
     }
 
     public List<ClassificationDto> entityToDto(List<Classification> classificationsList) {
@@ -45,11 +48,11 @@ public class ClassificationMapper {
 
         // Classification classification = new Classification();
 
-        // classification.setId(classificationDTO.getId());
+        // classification.setId(classificationDto.getId());
 
-        // classification.setTitle(classificationDTO.getTitle());
+        // classification.setTitle(classificationDto.getTitle());
 
-        // classification.setIsActive(classificationDTO.getIsActive());
+        // classification.setCoverImageLink(classificationDto.getCoverImageLink());
 
         ModelMapper modelMapper = new ModelMapper();
 

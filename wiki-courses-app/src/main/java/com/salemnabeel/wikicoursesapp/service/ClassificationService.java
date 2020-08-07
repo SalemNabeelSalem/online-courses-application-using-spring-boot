@@ -1,8 +1,8 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.mapper.ClassificationMapper;
-import com.salemnabeel.wikicoursesapp.dto.ClassificationCreateNew;
-import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
+import com.salemnabeel.wikicoursesapp.dto.create.ClassificationDtoCreate;
+import com.salemnabeel.wikicoursesapp.dto.view.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Section;
@@ -33,15 +33,17 @@ public class ClassificationService {
         return classificationMapper.entityToDto(classificationsList);
     }
 
-    public ClassificationDto createNewClassification(ClassificationCreateNew classificationCreateNewRequest) {
+    public ClassificationDto createNewClassification(ClassificationDtoCreate classificationDtoCreateRequest) {
 
-        Long sectionId = classificationCreateNewRequest.getSectionId();
+        Long sectionId = classificationDtoCreateRequest.getSectionId();
 
-        String classificationTitle = classificationCreateNewRequest.getTitle();
+        String classificationTitle = classificationDtoCreateRequest.getTitle();
+
+        String classificationImageCoverLink = classificationDtoCreateRequest.getCoverImageLink();
 
         if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("section id: " + sectionId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
         Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
@@ -53,6 +55,8 @@ public class ClassificationService {
         classification.setTitle(classificationTitle);
 
         classification.setSection(section);
+
+        classification.setCoverImageLink(classificationImageCoverLink);
 
         return classificationMapper.entityToDto(
             classificationRepository.save(classification)
@@ -78,6 +82,8 @@ public class ClassificationService {
 
         classification.setTitle(classificationRequest.getTitle());
 
+        classification.setCoverImageLink(classificationRequest.getCoverImageLink());
+
         return classificationMapper.entityToDto(
             classificationRepository.save(classification)
         );
@@ -98,6 +104,4 @@ public class ClassificationService {
 
         return ResponseEntity.ok().build();
     }
-
-
 }

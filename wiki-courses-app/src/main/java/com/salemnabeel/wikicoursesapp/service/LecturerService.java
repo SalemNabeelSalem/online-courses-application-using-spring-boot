@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.mapper.LecturerMapper;
-import com.salemnabeel.wikicoursesapp.dto.LecturerDto;
+import com.salemnabeel.wikicoursesapp.dto.view.LecturerDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.repository.LecturerRepository;
@@ -38,25 +38,6 @@ public class LecturerService {
 
     public List<LecturerDto> getActiveLecturerById(Long lecturerId) {
 
-        /*
-            // Using This Commented Code If The Returned Datatype Is Only LecturerDto.
-
-            if (!lecturerRepository.existsById(lecturerId)) {
-
-                throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
-            }
-
-            if (lecturerRepository.getActiveLecturerById(lecturerId) == null) {
-
-                throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
-            }
-
-            if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
-
-                throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
-            }
-        */
-
         List<Lecturer> lecturersList = lecturerRepository.getActiveLecturerById(lecturerId);
 
         return lecturerMapper.entityToDto(lecturersList);
@@ -66,7 +47,7 @@ public class LecturerService {
 
         if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
 
-            throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
         Lecturer lecturer = lecturerRepository.getActiveLecturerById(lecturerId).get(0);
@@ -74,6 +55,8 @@ public class LecturerService {
         lecturer.setFullName(lecturerRequest.getFullName());
 
         lecturer.setEmail(lecturerRequest.getEmail());
+
+        lecturer.setProfileImageLink(lecturerRequest.getProfileImageLink());
 
         return lecturerMapper.entityToDto(
             lecturerRepository.save(lecturer)
@@ -84,7 +67,7 @@ public class LecturerService {
 
         if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
 
-            throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
+            throw new ResourceNotFoundException("resource not found.");
         }
 
         Lecturer lecturer = lecturerRepository.getActiveLecturerById(lecturerId).get(0);

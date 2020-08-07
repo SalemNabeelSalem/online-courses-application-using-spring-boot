@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.dto;
+package com.salemnabeel.wikicoursesapp.dto.view;
 
 import lombok.Data;
 
@@ -10,4 +10,6 @@ public class ClassificationDto {
     private String title;
 
     private String sectionTitle;
+
+    private String coverImageLink;
 }

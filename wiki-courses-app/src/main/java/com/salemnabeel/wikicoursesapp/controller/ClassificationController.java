@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.ClassificationCreateNew;
-import com.salemnabeel.wikicoursesapp.dto.ClassificationDto;
+import com.salemnabeel.wikicoursesapp.dto.create.ClassificationDtoCreate;
+import com.salemnabeel.wikicoursesapp.dto.view.ClassificationDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.service.ClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ public class ClassificationController {
 
     // TODO: Make This URL For The Admin Access Only.
     @PostMapping("/classifications")
-    public ClassificationDto createNewClassification(@RequestBody ClassificationCreateNew classificationCreateNewRequest) {
+    public ClassificationDto createNewClassification(@RequestBody ClassificationDtoCreate classificationDtoCreateRequest) {
 
-        return classificationService.createNewClassification(classificationCreateNewRequest);
+        return classificationService.createNewClassification(classificationDtoCreateRequest);
     }
 
     @GetMapping("/sections/{section-id}/classifications/{classification-id}")

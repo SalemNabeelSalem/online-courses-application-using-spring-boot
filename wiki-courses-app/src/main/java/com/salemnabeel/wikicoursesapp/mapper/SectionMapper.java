@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.mapper;
 
-import com.salemnabeel.wikicoursesapp.dto.SectionDto;
+import com.salemnabeel.wikicoursesapp.dto.view.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ public class SectionMapper {
 
         // sectionDto.setTitle(section.getTitle());
 
-        // sectionDto.setIsActive(section.getIsActive());
+        // sectionDto.setCoverImageLink(section.getCoverImageLink());
 
         ModelMapper modelMapper = new ModelMapper();
 
@@ -43,7 +43,7 @@ public class SectionMapper {
 
         // section.setTitle(sectionDto.getTitle());
 
-        // section.setIsActive(sectionDto.getIsActive());
+        // section.setCoverImageLink(sectionDto.getCoverImageLink());
 
         ModelMapper modelMapper = new ModelMapper();
 

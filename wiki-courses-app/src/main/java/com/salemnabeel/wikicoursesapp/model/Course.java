@@ -1,6 +1,7 @@
 package com.salemnabeel.wikicoursesapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.salemnabeel.wikicoursesapp.model.enums.Language;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -28,8 +29,6 @@ public class Course extends AuditModel {
     @Column(name = "source_url", length = 255, unique = true, nullable = false)
     private String sourceUrl;
 
-    // TO-DO: Creating The classificationId Property For Relationship With The Classification Table.
-
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "classification_id", nullable = false)
@@ -41,15 +40,17 @@ public class Course extends AuditModel {
     @Column(length = 255, nullable = false)
     private String description;
 
-    // TODO: Creating The coverImageUrl Property For Storing The Cover Image Of The Course.
-
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "lecturer_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lecturer lecturer;
 
-    // TODO: Creating The language Property For Storing The Language Type Of The Course.
+    @NotNull
+    @Size(max = 2, min = 2)
+    @Enumerated(EnumType.STRING)
+    @Column(length = 2, nullable = false)
+    private Language language;
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;

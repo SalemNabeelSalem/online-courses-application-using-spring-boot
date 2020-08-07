@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.mapper;
 
-import com.salemnabeel.wikicoursesapp.dto.LecturerDto;
+import com.salemnabeel.wikicoursesapp.dto.view.LecturerDto;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

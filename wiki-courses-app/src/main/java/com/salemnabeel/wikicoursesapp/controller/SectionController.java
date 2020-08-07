@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.SectionDto;
+import com.salemnabeel.wikicoursesapp.dto.view.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
