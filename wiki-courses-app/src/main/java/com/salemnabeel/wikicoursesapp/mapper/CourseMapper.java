@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.mapper;
 
-import com.salemnabeel.wikicoursesapp.dto.CourseDto;
+import com.salemnabeel.wikicoursesapp.dto.view.CourseDto;
 import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Course;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
@@ -22,27 +22,41 @@ public class CourseMapper {
 
         CourseDto courseDto = new CourseDto();
 
+        // For Course Id
         courseDto.setId(course.getId());
 
+        // For Course Title
         courseDto.setTitle(course.getTitle());
 
+        // For Course Source Url
         courseDto.setSourceUrl(course.getSourceUrl());
-
-        courseDto.setDescription(course.getDescription());
 
         Classification classification = course.getClassification();
 
-        courseDto.setClassification(classification.getTitle());
-
         Section section = classification.getSection();
 
+        // For Section Title
         courseDto.setSection(section.getTitle());
+
+        // For Classification Title
+        courseDto.setClassification(classification.getTitle());
+
+        // For Course Description
+        courseDto.setDescription(course.getDescription());
+
+        // For Course Cover Image Link
+        courseDto.setCoverImageLink(course.getCoverImageLink());
 
         Lecturer lecturer = course.getLecturer();
 
+        // For Lecturer Full Name
         courseDto.setLecturer(lecturer.getFullName());
 
-        courseDto.setCreatedAtDate(course.getCreatedAt());
+        // For Course Language
+        courseDto.setLanguage(course.getLanguage());
+
+        // For Course Created Date
+        courseDto.setCreatedDate(course.getCreatedAt());
 
         return courseDto;
     }

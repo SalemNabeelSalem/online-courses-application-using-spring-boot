@@ -1,10 +1,14 @@
 package com.salemnabeel.wikicoursesapp.service;
 
+import com.salemnabeel.wikicoursesapp.dto.create.CourseDtoCreate;
 import com.salemnabeel.wikicoursesapp.mapper.CourseMapper;
-import com.salemnabeel.wikicoursesapp.dto.CourseDto;
+import com.salemnabeel.wikicoursesapp.dto.view.CourseDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
+import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Course;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
+import com.salemnabeel.wikicoursesapp.model.enums.Language;
+import com.salemnabeel.wikicoursesapp.repository.ClassificationRepository;
 import com.salemnabeel.wikicoursesapp.repository.CourseRepository;
 import com.salemnabeel.wikicoursesapp.repository.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +27,18 @@ public class CourseService {
     private LecturerRepository lecturerRepository;
 
     @Autowired
+    private ClassificationRepository classificationRepository;
+
+    @Autowired
     private CourseMapper courseMapper;
+
+    public List<CourseDto> getAllActiveCoursesBySectionAndClassificationId(Long sectionId, Long classificationId) {
+
+        List<Course> coursesList = courseRepository.getAllActiveCoursesBySectionAndClassificationId(
+                sectionId, classificationId);
+
+        return courseMapper.entityToDto(coursesList);
+    }
 
     public List<CourseDto> getAllActiveCoursesByLecturerId(Long lecturerId) {
 
@@ -32,21 +47,56 @@ public class CourseService {
         return courseMapper.entityToDto(coursesList);
     }
 
-    public CourseDto createNewCourseByLecturerId(Long lecturerId, Course courseRequest) {
+    public CourseDto createNewCourse(CourseDtoCreate courseDtoCreateRequest) {
 
-        if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
+        String courseTitle = courseDtoCreateRequest.getTitle();
 
-            throw new ResourceNotFoundException("lecturer id: " + lecturerId + " not found.");
+        String courseSourceUrl = courseDtoCreateRequest.getSourceUrl();
+
+        String courseDescription = courseDtoCreateRequest.getDescription();
+
+        String courseCoverImageLink = courseDtoCreateRequest.getCoverImageLink();
+
+        Language courseLanguage = courseDtoCreateRequest.getLanguage();
+
+        Long classificationId = courseDtoCreateRequest.getClassificationId();
+
+        Classification classification = classificationRepository.findById(classificationId).get();
+
+        Long sectionId = classification.getSection().getId();
+
+        Long lecturerId = courseDtoCreateRequest.getLecturerId();
+
+        if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty() ||
+            classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).isEmpty()) {
+
+            throw new ResourceNotFoundException("resource not found.");
         }
 
         Lecturer lecturer = lecturerRepository.getActiveLecturerById(lecturerId).get(0);
 
-        courseRequest.setIsActive(true);
+        classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).get(0);
 
-        courseRequest.setLecturer(lecturer);
+        Course course = new Course();
+
+        course.setTitle(courseTitle);
+
+        course.setSourceUrl(courseSourceUrl);
+
+        course.setClassification(classification);
+
+        course.setDescription(courseDescription);
+
+        course.setCoverImageLink(courseCoverImageLink);
+
+        course.setLecturer(lecturer);
+
+        course.setLanguage(courseLanguage);
+
+        course.setIsActive(true);
 
         return courseMapper.entityToDto(
-            courseRepository.save(courseRequest)
+            courseRepository.save(course)
         );
     }
 

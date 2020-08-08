@@ -20,12 +20,12 @@ public class Course extends AuditModel {
     private Long id;
 
     @NotNull
-    @Size(max = 255, min = 1)
+    @Size(max = 255, min = 2)
     @Column(length = 255, unique = true, nullable = false)
     private String title;
 
     @NotNull
-    @Size(max = 255, min = 1)
+    @Size(max = 255, min = 2)
     @Column(name = "source_url", length = 255, unique = true, nullable = false)
     private String sourceUrl;
 
@@ -36,9 +36,14 @@ public class Course extends AuditModel {
     private Classification classification;
 
     @NotNull
-    @Size(max = 255, min = 1)
+    @Size(max = 255, min = 2)
     @Column(length = 255, nullable = false)
     private String description;
+
+    @NotNull
+    @Size(max = 255, min = 2)
+    @Column(name = "cover_image_link", length = 255, nullable = false)
+    private String coverImageLink;
 
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -47,7 +52,6 @@ public class Course extends AuditModel {
     private Lecturer lecturer;
 
     @NotNull
-    @Size(max = 2, min = 2)
     @Enumerated(EnumType.STRING)
     @Column(length = 2, nullable = false)
     private Language language;

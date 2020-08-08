@@ -1,6 +1,7 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.CourseDto;
+import com.salemnabeel.wikicoursesapp.dto.create.CourseDtoCreate;
+import com.salemnabeel.wikicoursesapp.dto.view.CourseDto;
 import com.salemnabeel.wikicoursesapp.model.Course;
 import com.salemnabeel.wikicoursesapp.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,13 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    // TODO: Create The GET Mapping => /sections/{section-id}/classifications/{classification-id}/courses
+    @GetMapping("/sections/{section-id}/classifications/{classification-id}/courses")
+    public List<CourseDto> getAllActiveCoursesBySectionAndClassificationId(
+                                            @PathVariable("section-id") Long sectionId,
+                                            @PathVariable("classification-id") Long classificationId) {
+
+        return courseService.getAllActiveCoursesBySectionAndClassificationId(sectionId, classificationId);
+    }
 
     @GetMapping("/lecturers/{lecturer-id}/courses")
     public List<CourseDto> getAllActiveCoursesByLecturerId(@PathVariable("lecturer-id") Long lecturerId) {
@@ -25,11 +32,10 @@ public class CourseController {
     }
 
     // TODO: Make This URL For The Admin Access Only.
-    @PostMapping("/lecturers/{lecturer-id}/courses")
-    public CourseDto createNewCourseByLecturerId(@PathVariable("lecturer-id") Long lecturerId,
-                                                 @Valid @RequestBody Course courseRequest) {
+    @PostMapping("/courses")
+    public CourseDto createNewCourse(@RequestBody CourseDtoCreate courseDtoCreateRequest) {
 
-        return courseService.createNewCourseByLecturerId(lecturerId, courseRequest);
+        return courseService.createNewCourse(courseDtoCreateRequest);
     }
 
     @GetMapping("/lecturers/{lecturer-id}/courses/{course-id}")
