@@ -1,9 +1,12 @@
 package com.salemnabeel.wikicoursesapp.dto.view;
 
+import com.salemnabeel.wikicoursesapp.model.Tag;
 import com.salemnabeel.wikicoursesapp.model.enums.Language;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Data
 public class CourseDto {
@@ -27,4 +30,6 @@ public class CourseDto {
     private Language language;
 
     private Date createdDate;
+
+    private List tags;
 }

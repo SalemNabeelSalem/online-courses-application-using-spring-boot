@@ -58,6 +58,9 @@ public class CourseMapper {
         // For Course Created Date
         courseDto.setCreatedDate(course.getCreatedAt());
 
+        // TODO: Fixing The Issues Of JSON Mapping Problem.
+        courseDto.setTags(course.getTags());
+
         return courseDto;
     }
 

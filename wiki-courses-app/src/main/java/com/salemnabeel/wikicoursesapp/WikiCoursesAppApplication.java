@@ -38,7 +38,7 @@ public class WikiCoursesAppApplication {
 	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> upload(@RequestParam("file") MultipartFile[] files) {
 
-		String fileDirectory = "S:\\My Repositories\\collage-services-app-wiki-courses\\resources\\images\\products\\";
+		String fileDirectory = "C:\\Users\\SalemNabeel\\Pictures\\resources\\images\\products\\";
 
 		try {
 			uploadFiles(fileDirectory, files);
@@ -46,7 +46,7 @@ public class WikiCoursesAppApplication {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<>("file uploaded successfully", HttpStatus.OK);
+		return new ResponseEntity<>("files uploaded successfully", HttpStatus.OK);
 	}
 
 	public void uploadFiles(String fileDirectory, MultipartFile[] files) throws IOException {

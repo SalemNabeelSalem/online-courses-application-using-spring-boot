@@ -13,6 +13,10 @@ spring:
     properties:
       hibernate: # makes hibernate generate better sql for the chosen database.
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
 
 logging:
   level:
