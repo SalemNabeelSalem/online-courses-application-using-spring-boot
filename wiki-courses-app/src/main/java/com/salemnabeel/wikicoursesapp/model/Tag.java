@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,10 +17,11 @@ public class Tag extends AuditModel {
     private Long id;
 
     @NotNull
-    @Size(max = 15, min = 2)
-    @Column(length = 15, nullable = false)
+    @Size(max = 45, min = 2)
+    @Column(length = 45, nullable = false)
     private String title;
 
+    @JsonIgnore
     @JoinColumn(name = "course_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Course course;

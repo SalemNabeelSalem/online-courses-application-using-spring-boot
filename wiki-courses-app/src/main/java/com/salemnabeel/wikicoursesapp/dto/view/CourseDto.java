@@ -31,5 +31,5 @@ public class CourseDto {
 
     private Date createdDate;
 
-    private List tags;
+    private List<Tag> tags;
 }
