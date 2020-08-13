@@ -6,7 +6,6 @@ import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class CourseDto {
@@ -31,5 +30,5 @@ public class CourseDto {
 
     private Date createdDate;
 
-    private List<Tag> tags;
+    private List<TagDto> tags;
 }

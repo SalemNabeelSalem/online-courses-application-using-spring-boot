@@ -31,8 +31,8 @@ public class SectionMapper {
     public List<SectionDto> entityToDto(List<Section> sectionsList) {
 
         return sectionsList.stream().map(
-            section -> entityToDto(section)).collect(Collectors.toList()
-        );
+            section -> entityToDto(section)
+        ).collect(Collectors.toList());
     }
 
     public Section dtoToEntity(SectionDto sectionDto) {
@@ -55,7 +55,7 @@ public class SectionMapper {
     public List<Section> dtoToEntity(List<SectionDto> sectionsDtoList) {
 
         return sectionsDtoList.stream().map(
-            sectionDto -> dtoToEntity(sectionDto)).collect(Collectors.toList()
-        );
+            sectionDto -> dtoToEntity(sectionDto)
+        ).collect(Collectors.toList());
     }
 }

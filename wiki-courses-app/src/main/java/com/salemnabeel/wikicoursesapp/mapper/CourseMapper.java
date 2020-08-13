@@ -6,6 +6,7 @@ import com.salemnabeel.wikicoursesapp.model.Course;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class CourseMapper {
+
+    @Autowired
+    TagMapper tagMapper;
 
     public CourseDto entityToDto(Course course) {
 
@@ -58,8 +62,8 @@ public class CourseMapper {
         // For Course Created Date
         courseDto.setCreatedDate(course.getCreatedAt());
 
-        // TODO: Fixing The Issues Of JSON Mapping Problem.
-        courseDto.setTags(course.getTags());
+        // For The Course Tags
+        courseDto.setTags(tagMapper.entityToDto(course.getTags()));
 
         return courseDto;
     }
@@ -67,8 +71,8 @@ public class CourseMapper {
     public List<CourseDto> entityToDto(List<Course> coursesList) {
 
         return coursesList.stream().map(
-            course -> entityToDto(course)).collect(Collectors.toList()
-        );
+            course -> entityToDto(course)
+        ).collect(Collectors.toList());
     }
 
     public Course dtoToEntity(CourseDto courseDto) {
@@ -83,7 +87,7 @@ public class CourseMapper {
     public List<Course> dtoToEntity(List<CourseDto> coursesDtoList) {
 
         return coursesDtoList.stream().map(
-            courseDto -> dtoToEntity(courseDto)).collect(Collectors.toList()
-        );
+            courseDto -> dtoToEntity(courseDto)
+        ).collect(Collectors.toList());
     }
 }

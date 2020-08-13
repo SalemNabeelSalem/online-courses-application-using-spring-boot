@@ -22,7 +22,9 @@ public class LecturerMapper {
 
     public List<LecturerDto> entityToDto(List<Lecturer> lecturersList) {
 
-        return lecturersList.stream().map(lecturer -> entityToDto(lecturer)).collect(Collectors.toList());
+        return lecturersList.stream().map(
+            lecturer -> entityToDto(lecturer)
+        ).collect(Collectors.toList());
     }
 
     public Lecturer dtoToEntity(LecturerDto lecturerDto) {
@@ -36,6 +38,8 @@ public class LecturerMapper {
 
     public List<Lecturer> dtoToEntity(List<LecturerDto> lecturersDtoList) {
 
-        return lecturersDtoList.stream().map(lecturerDto -> dtoToEntity(lecturerDto)).collect(Collectors.toList());
+        return lecturersDtoList.stream().map(
+            lecturerDto -> dtoToEntity(lecturerDto)
+        ).collect(Collectors.toList());
     }
 }

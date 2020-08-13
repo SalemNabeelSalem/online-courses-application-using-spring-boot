@@ -63,7 +63,7 @@ public class ClassificationMapper {
 
     public List<Classification> dtoToEntity(List<ClassificationDto> classificationsDtoList) {
         return classificationsDtoList.stream().map(
-                classificationDto -> dtoToEntity(classificationDto)).collect(Collectors.toList()
-        );
+            classificationDto -> dtoToEntity(classificationDto)
+        ).collect(Collectors.toList());
     }
 }
