@@ -1,6 +1,5 @@
 package com.salemnabeel.wikicoursesapp.dto.view;
 
-import com.salemnabeel.wikicoursesapp.model.Tag;
 import com.salemnabeel.wikicoursesapp.model.enums.Language;
 import lombok.Data;
 

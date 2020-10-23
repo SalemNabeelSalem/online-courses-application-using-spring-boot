@@ -22,7 +22,12 @@ public class Section extends AuditModel {
 
     @NotNull
     @Size(max = 255, min = 2)
-    @Column(name = "cover_image_link", length = 255, nullable = false)
+    @Column(nullable = false)
+    private String brief;
+
+    @NotNull
+    @Size(max = 255, min = 2)
+    @Column(name = "cover_image_link", nullable = false)
     private String coverImageLink;
 
     @Column(name = "is_active", nullable = false)

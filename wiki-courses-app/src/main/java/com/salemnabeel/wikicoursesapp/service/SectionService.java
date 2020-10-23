@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.mapper.SectionMapper;
-import com.salemnabeel.wikicoursesapp.dto.view.SectionDto;
+import com.salemnabeel.wikicoursesapp.mapper.section.SectionMapper;
+import com.salemnabeel.wikicoursesapp.dto.section.SectionDto;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.repository.SectionRepository;
@@ -17,30 +17,28 @@ public class SectionService {
     @Autowired
     private SectionRepository sectionRepository;
 
-    @Autowired
-    private SectionMapper sectionMapper;
+    public List<SectionDto> getAllSections() {
+
+        return SectionMapper.entityToDto(sectionRepository.findAll());
+    }
 
     public List<SectionDto> getAllActiveSections() {
 
-        List<Section> sectionsList = sectionRepository.getAllActiveSections();
-
-        return  sectionMapper.entityToDto(sectionsList);
+        return  SectionMapper.entityToDto(sectionRepository.getAllActiveSections());
     }
 
     public SectionDto createNewSection(Section sectionRequest) {
 
         sectionRequest.setIsActive(true);
 
-        return sectionMapper.entityToDto(
-            sectionRepository.save(sectionRequest)
-        );
+        return SectionMapper.entityToDto(sectionRepository.save(sectionRequest));
     }
 
     public List<SectionDto> getActiveSectionById(Long sectionId) {
 
         List<Section> sectionsList = sectionRepository.getActiveSectionById(sectionId);
 
-        return sectionMapper.entityToDto(sectionsList);
+        return SectionMapper.entityToDto(sectionsList);
     }
 
     public SectionDto updateSectionInfoById(Long sectionId, Section sectionRequest) {
@@ -56,7 +54,7 @@ public class SectionService {
 
         section.setCoverImageLink(sectionRequest.getCoverImageLink());
 
-        return sectionMapper.entityToDto(
+        return SectionMapper.entityToDto(
             sectionRepository.save(section)
         );
     }

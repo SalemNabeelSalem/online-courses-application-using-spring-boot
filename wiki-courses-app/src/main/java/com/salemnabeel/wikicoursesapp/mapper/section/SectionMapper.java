@@ -1,17 +1,17 @@
-package com.salemnabeel.wikicoursesapp.mapper;
+package com.salemnabeel.wikicoursesapp.mapper.section;
 
-import com.salemnabeel.wikicoursesapp.dto.view.SectionDto;
+import com.salemnabeel.wikicoursesapp.dto.section.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class SectionMapper {
 
-    public SectionDto entityToDto(Section section) {
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public static SectionDto entityToDto(Section section) {
 
         // SectionDto sectionDto = new SectionDto();
 
@@ -21,21 +21,17 @@ public class SectionMapper {
 
         // sectionDto.setCoverImageLink(section.getCoverImageLink());
 
-        ModelMapper modelMapper = new ModelMapper();
-
         SectionDto sectionDto = modelMapper.map(section, SectionDto.class);
 
         return sectionDto;
     }
 
-    public List<SectionDto> entityToDto(List<Section> sectionsList) {
+    public static List<SectionDto> entityToDto(List<Section> sectionsList) {
 
-        return sectionsList.stream().map(
-            section -> entityToDto(section)
-        ).collect(Collectors.toList());
+        return sectionsList.stream().map(section -> entityToDto(section)).collect(Collectors.toList());
     }
 
-    public Section dtoToEntity(SectionDto sectionDto) {
+    public static Section dtoToEntity(SectionDto sectionDto) {
 
         // Section section = new Section();
 
@@ -45,14 +41,12 @@ public class SectionMapper {
 
         // section.setCoverImageLink(sectionDto.getCoverImageLink());
 
-        ModelMapper modelMapper = new ModelMapper();
-
         Section section = modelMapper.map(sectionDto, Section.class);
 
         return section;
     }
 
-    public List<Section> dtoToEntity(List<SectionDto> sectionsDtoList) {
+    public static List<Section> dtoToEntity(List<SectionDto> sectionsDtoList) {
 
         return sectionsDtoList.stream().map(
             sectionDto -> dtoToEntity(sectionDto)

@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.view.SectionDto;
+import com.salemnabeel.wikicoursesapp.dto.section.SectionDto;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +11,26 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 public class SectionController {
 
     @Autowired
     private SectionService sectionService;
 
-    @GetMapping("/sections")
+    @GetMapping("/all-sections")
+    public List<SectionDto> getAllSections() {
+
+        return sectionService.getAllSections();
+    }
+
+    @GetMapping("/active-sections")
     public List<SectionDto> getAllActiveSections() {
 
         return sectionService.getAllActiveSections();
     }
 
     // TODO: Make This URL For The Admin Access Only.
-    @PostMapping("/sections")
+    @PostMapping("/add-section")
     public SectionDto createNewSection(@Valid @RequestBody Section sectionRequest) {
 
         return sectionService.createNewSection(sectionRequest);

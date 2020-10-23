@@ -60,6 +60,7 @@ public class Course extends AuditModel {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
+    @JsonIgnore
     @OneToMany(
         mappedBy = "course",
         fetch = FetchType.LAZY,
