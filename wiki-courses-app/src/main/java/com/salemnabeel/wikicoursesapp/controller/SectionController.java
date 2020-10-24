@@ -43,7 +43,7 @@ public class SectionController {
     }
 
     // TODO: Make This URL For The Admin Access Only.
-    @PutMapping("/sections/{section-id}")
+    @PutMapping("/edit-section/{section-id}")
     public SectionDto updateSectionInfoById(@PathVariable("section-id") Long sectionId,
                                             @Valid @RequestBody Section sectionRequest) {
 

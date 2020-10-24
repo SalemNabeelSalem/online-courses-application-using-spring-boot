@@ -43,20 +43,22 @@ public class SectionService {
 
     public SectionDto updateSectionInfoById(Long sectionId, Section sectionRequest) {
 
-        if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
+        if (sectionRepository.findById(sectionId).isEmpty()) {
 
             throw new ResourceNotFoundException("resource not found.");
         }
 
-        Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
+        Section section = sectionRepository.findById(sectionId).get();
 
         section.setTitle(sectionRequest.getTitle());
 
+        section.setBrief(sectionRequest.getBrief());
+
         section.setCoverImageLink(sectionRequest.getCoverImageLink());
 
-        return SectionMapper.entityToDto(
-            sectionRepository.save(section)
-        );
+        section.setIsActive(sectionRequest.getIsActive());
+
+        return SectionMapper.entityToDto(sectionRepository.save(section));
     }
 
     public ResponseEntity deActivateSectionById(Long sectionId) {
