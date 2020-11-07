@@ -1,8 +1,9 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.mapper.ClassificationMapper;
-import com.salemnabeel.wikicoursesapp.dto.create.ClassificationDtoCreate;
-import com.salemnabeel.wikicoursesapp.dto.view.ClassificationDto;
+import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoEdit;
+import com.salemnabeel.wikicoursesapp.mapper.classification.ClassificationMapper;
+import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoNew;
+import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Section;
@@ -23,68 +24,70 @@ public class ClassificationService {
     @Autowired
     private SectionRepository sectionRepository;
 
-    @Autowired
-    private ClassificationMapper classificationMapper;
+    public List<ClassificationDtoView> getAllClassifications() {
 
-    public List<ClassificationDto> getAllActiveClassificationsBySectionId(Long sectionId) {
-
-        List<Classification> classificationsList = classificationRepository.getAllActiveClassificationsBySectionId(sectionId);
-
-        return classificationMapper.entityToDto(classificationsList);
+        return ClassificationMapper.entityToDto(classificationRepository.findAll());
     }
 
-    public ClassificationDto createNewClassification(ClassificationDtoCreate classificationDtoCreateRequest) {
+    public List<ClassificationDtoView> getAllActiveClassifications() {
 
-        Long sectionId = classificationDtoCreateRequest.getSectionId();
+        return ClassificationMapper.entityToDto(classificationRepository.getAllActiveClassifications());
+    }
 
-        String classificationTitle = classificationDtoCreateRequest.getTitle();
+    public ClassificationDtoView createNewClassification(ClassificationDtoNew classificationDtoNewRequest) {
 
-        String classificationImageCoverLink = classificationDtoCreateRequest.getCoverImageLink();
+        Long sectionId = classificationDtoNewRequest.getSectionId();
 
-        if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
+        if (sectionRepository.findById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("resource not found.");
+            throw new ResourceNotFoundException("classification resource not found.");
         }
 
-        Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
+        Section section = sectionRepository.findById(sectionId).get();
 
         Classification classification = new Classification();
 
-        classification.setIsActive(true);
+        classification.setTitle(classificationDtoNewRequest.getTitle());
 
-        classification.setTitle(classificationTitle);
+        classification.setBrief(classificationDtoNewRequest.getBrief());
 
         classification.setSection(section);
 
-        classification.setCoverImageLink(classificationImageCoverLink);
+        classification.setCoverImageLink(classificationDtoNewRequest.getCoverImageLink());
 
-        return classificationMapper.entityToDto(
-            classificationRepository.save(classification)
-        );
+        classification.setIsActive(true);
+
+        return ClassificationMapper.entityToDto(classificationRepository.save(classification));
     }
 
-    public List<ClassificationDto> getActiveClassificationBySectionId(Long sectionId, Long classificationId) {
+    public ClassificationDtoView updateClassificationInfoById(
+            Long classificationId, ClassificationDtoEdit classificationDtoEditRequest) {
 
-        List<Classification> classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId);
+        if (classificationRepository.findById(classificationId).isEmpty()) {
 
-        return classificationMapper.entityToDto(classification);
-    }
-
-    public ClassificationDto updateClassificationInfoBySectionId(Long sectionId, Long classificationId,
-                                                                 Classification classificationRequest) {
-
-        if (classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).isEmpty()) {
-
-            throw new ResourceNotFoundException("resource not found.");
+            throw new ResourceNotFoundException("classification resource not found.");
         }
 
-        Classification classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).get(0);
+        Classification classification = classificationRepository.findById(classificationId).get();
 
-        classification.setTitle(classificationRequest.getTitle());
+        if (sectionRepository.findById(classificationDtoEditRequest.getSectionId()).isEmpty()) {
 
-        classification.setCoverImageLink(classificationRequest.getCoverImageLink());
+            throw new ResourceNotFoundException("section resource not found.");
+        }
 
-        return classificationMapper.entityToDto(
+        Section section = sectionRepository.findById(classificationDtoEditRequest.getSectionId()).get();
+
+        classification.setTitle(classificationDtoEditRequest.getTitle());
+
+        classification.setBrief(classificationDtoEditRequest.getBrief());
+
+        classification.setSection(section);
+
+        classification.setCoverImageLink(classificationDtoEditRequest.getCoverImageLink());
+
+        classification.setIsActive(classificationDtoEditRequest.getIsActive());
+
+        return ClassificationMapper.entityToDto(
             classificationRepository.save(classification)
         );
     }
@@ -101,6 +104,20 @@ public class ClassificationService {
         classification.setIsActive(false);
 
         classificationRepository.save(classification);
+
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity deleteClassificationById(Long classificationId) {
+
+        if (classificationRepository.findById(classificationId).isEmpty()) {
+
+            throw new ResourceNotFoundException("classification resource not found.");
+        }
+
+        Classification classification = classificationRepository.findById(classificationId).get();
+
+        classificationRepository.delete(classification);
 
         return ResponseEntity.ok().build();
     }

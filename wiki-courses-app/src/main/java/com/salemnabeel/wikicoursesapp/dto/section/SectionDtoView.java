@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class SectionDto {
+public class SectionDtoView {
 
     private Long id;
 

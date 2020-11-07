@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.mapper.section.SectionMapper;
-import com.salemnabeel.wikicoursesapp.dto.section.SectionDto;
+import com.salemnabeel.wikicoursesapp.dto.section.SectionDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;
 import com.salemnabeel.wikicoursesapp.repository.SectionRepository;
@@ -17,35 +17,28 @@ public class SectionService {
     @Autowired
     private SectionRepository sectionRepository;
 
-    public List<SectionDto> getAllSections() {
+    public List<SectionDtoView> getAllSections() {
 
         return SectionMapper.entityToDto(sectionRepository.findAll());
     }
 
-    public List<SectionDto> getAllActiveSections() {
+    public List<SectionDtoView> getAllActiveSections() {
 
         return  SectionMapper.entityToDto(sectionRepository.getAllActiveSections());
     }
 
-    public SectionDto createNewSection(Section sectionRequest) {
+    public SectionDtoView createNewSection(Section sectionRequest) {
 
         sectionRequest.setIsActive(true);
 
         return SectionMapper.entityToDto(sectionRepository.save(sectionRequest));
     }
 
-    public List<SectionDto> getActiveSectionById(Long sectionId) {
-
-        List<Section> sectionsList = sectionRepository.getActiveSectionById(sectionId);
-
-        return SectionMapper.entityToDto(sectionsList);
-    }
-
-    public SectionDto updateSectionInfoById(Long sectionId, Section sectionRequest) {
+    public SectionDtoView updateSectionInfoById(Long sectionId, Section sectionRequest) {
 
         if (sectionRepository.findById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("resource not found.");
+            throw new ResourceNotFoundException("section resource not found.");
         }
 
         Section section = sectionRepository.findById(sectionId).get();
@@ -61,18 +54,16 @@ public class SectionService {
         return SectionMapper.entityToDto(sectionRepository.save(section));
     }
 
-    public ResponseEntity deActivateSectionById(Long sectionId) {
+    public ResponseEntity deleteSectionById(Long sectionId) {
 
-        if (sectionRepository.getActiveSectionById(sectionId).isEmpty()) {
+        if (sectionRepository.findById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("resource not found.");
+            throw new ResourceNotFoundException("section resource not found.");
         }
 
-        Section section = sectionRepository.getActiveSectionById(sectionId).get(0);
+        Section section = sectionRepository.findById(sectionId).get();
 
-        section.setIsActive(false);
-
-        sectionRepository.save(section);
+        sectionRepository.delete(section);
 
         return ResponseEntity.ok().build();
     }

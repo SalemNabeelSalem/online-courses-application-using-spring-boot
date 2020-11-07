@@ -23,6 +23,11 @@ public class Classification extends AuditModel {
     @Column(length = 20, unique = true, nullable = false)
     private String title;
 
+    @NotNull
+    @Size(max = 255, min = 2)
+    @Column(nullable = false)
+    private String brief;
+
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "section_id", nullable = false)
