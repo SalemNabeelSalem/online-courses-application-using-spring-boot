@@ -40,7 +40,7 @@ public class ClassificationService {
 
         if (sectionRepository.findById(sectionId).isEmpty()) {
 
-            throw new ResourceNotFoundException("classification resource not found.");
+            throw new ResourceNotFoundException("section resource not found.");
         }
 
         Section section = sectionRepository.findById(sectionId).get();
@@ -90,22 +90,6 @@ public class ClassificationService {
         return ClassificationMapper.entityToDto(
             classificationRepository.save(classification)
         );
-    }
-
-    public ResponseEntity deActivateClassificationBySectionId(Long sectionId, Long classificationId) {
-
-        if (classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).isEmpty()) {
-
-            throw new ResourceNotFoundException("resource not found.");
-        }
-
-        Classification classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).get(0);
-
-        classification.setIsActive(false);
-
-        classificationRepository.save(classification);
-
-        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity deleteClassificationById(Long classificationId) {

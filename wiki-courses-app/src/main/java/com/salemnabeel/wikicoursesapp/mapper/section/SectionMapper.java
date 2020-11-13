@@ -49,7 +49,7 @@ public class SectionMapper {
     public static List<Section> dtoToEntity(List<SectionDtoView> sectionsDtoList) {
 
         return sectionsDtoList.stream().map(
-                sectionDtoView -> dtoToEntity(sectionDtoView)
+            sectionDtoView -> dtoToEntity(sectionDtoView)
         ).collect(Collectors.toList());
     }
 }

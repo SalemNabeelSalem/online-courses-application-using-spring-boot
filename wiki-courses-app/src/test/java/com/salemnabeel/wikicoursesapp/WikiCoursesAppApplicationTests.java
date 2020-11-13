@@ -8,6 +8,6 @@ class WikiCoursesAppApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
 
+	}
 }
