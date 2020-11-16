@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.model;
 
+import com.salemnabeel.wikicoursesapp.model.enums.Gender;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +21,16 @@ public class Lecturer extends AuditModel {
     @Size(max = 25, min = 2)
     @Column(name = "full_name", length = 25, unique = true, nullable = false)
     private String fullName;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(length = 1, nullable = false)
+    private Gender gender;
+
+    @NotNull
+    @Size(max = 500, min = 2)
+    @Column(length = 500, nullable = false)
+    private String description;
 
     @Email
     @NotNull

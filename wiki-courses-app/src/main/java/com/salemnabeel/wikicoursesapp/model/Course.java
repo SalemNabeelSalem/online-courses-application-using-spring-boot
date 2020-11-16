@@ -38,7 +38,7 @@ public class Course extends AuditModel {
 
     @NotNull
     @Size(max = 255, min = 2)
-    @Column(length = 255, nullable = false)
+    @Column(nullable = false)
     private String description;
 
     @NotNull

@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.dto.lecturer;
 
+import com.salemnabeel.wikicoursesapp.model.enums.Gender;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,6 +11,10 @@ public class LecturerDtoView {
     private Long id;
 
     private String fullName;
+
+    private Gender gender;
+
+    private String description;
 
     private String email;
 
