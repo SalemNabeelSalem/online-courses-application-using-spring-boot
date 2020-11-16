@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.view.LecturerDto;
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,42 +11,40 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 public class LecturerController {
 
     @Autowired
     private LecturerService lecturerService;
 
-    @GetMapping("/lecturers")
-    public List<LecturerDto> getAllActiveLecturers() {
+    @GetMapping("/all-lecturers")
+    public List<LecturerDtoView> getAllLecturers() {
+
+        return lecturerService.getAllLecturers();
+    }
+
+    @GetMapping("/active-lecturers")
+    public List<LecturerDtoView> getAllActiveLecturers() {
 
         return lecturerService.getAllActiveLecturers();
     }
 
-    // TODO: Make This URL For The Admin Access Only.
-    @PostMapping("/lecturers")
-    public LecturerDto createNewLecturer(@Valid @RequestBody Lecturer lecturerRequest) {
+    @PostMapping("/add-lecturer")
+    public LecturerDtoView createNewLecturer(@Valid @RequestBody Lecturer lecturerRequest) {
 
         return lecturerService.createNewLecturer(lecturerRequest);
     }
 
-    @GetMapping("/lecturers/{lecturer-id}")
-    public List<LecturerDto> getActiveLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
-
-        return lecturerService.getActiveLecturerById(lecturerId);
-    }
-
-    // TODO: Make This URL For The Admin Access Only.
-    @PutMapping("/lecturers/{lecturer-id}")
-    public LecturerDto updateLecturerInfoById(@PathVariable("lecturer-id") Long lecturerId,
-                                              @Valid @RequestBody Lecturer lecturerRequest) {
+    @PutMapping("/edit-lecturer/{lecturer-id}")
+    public LecturerDtoView updateLecturerInfoById(@PathVariable("lecturer-id") Long lecturerId,
+                                                  @Valid @RequestBody Lecturer lecturerRequest) {
 
         return lecturerService.updateLecturerInfoById(lecturerId, lecturerRequest);
     }
 
-    // TODO: Make This URL For The Admin Access Only.
-    @DeleteMapping("/lecturers/{lecturer-id}")
-    public ResponseEntity deActivateLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
+    @DeleteMapping("/delete-lecturer/{lecturer-id}")
+    public ResponseEntity deleteLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
 
-        return lecturerService.deActivateLecturerById(lecturerId);
+        return lecturerService.deleteLecturerById(lecturerId);
     }
 }

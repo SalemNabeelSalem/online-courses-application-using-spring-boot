@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.mapper;
 
-import com.salemnabeel.wikicoursesapp.dto.view.LecturerDto;
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -11,35 +11,33 @@ import java.util.stream.Collectors;
 @Component
 public class LecturerMapper {
 
-    public LecturerDto entityToDto(Lecturer lecturer) {
+    private static ModelMapper modelMapper = new ModelMapper();
 
-        ModelMapper modelMapper = new ModelMapper();
+    public static LecturerDtoView entityToDto(Lecturer lecturer) {
 
-        LecturerDto lecturerDto = modelMapper.map(lecturer, LecturerDto.class);
+        LecturerDtoView lecturerDtoView = modelMapper.map(lecturer, LecturerDtoView.class);
 
-        return lecturerDto;
+        return lecturerDtoView;
     }
 
-    public List<LecturerDto> entityToDto(List<Lecturer> lecturersList) {
+    public static List<LecturerDtoView> entityToDto(List<Lecturer> lecturersList) {
 
         return lecturersList.stream().map(
             lecturer -> entityToDto(lecturer)
         ).collect(Collectors.toList());
     }
 
-    public Lecturer dtoToEntity(LecturerDto lecturerDto) {
+    public static Lecturer dtoToEntity(LecturerDtoView lecturerDtoView) {
 
-        ModelMapper modelMapper = new ModelMapper();
-
-        Lecturer lecturer = modelMapper.map(lecturerDto, Lecturer.class);
+        Lecturer lecturer = modelMapper.map(lecturerDtoView, Lecturer.class);
 
         return lecturer;
     }
 
-    public List<Lecturer> dtoToEntity(List<LecturerDto> lecturersDtoList) {
+    public static List<Lecturer> dtoToEntity(List<LecturerDtoView> lecturersDtoList) {
 
         return lecturersDtoList.stream().map(
-            lecturerDto -> dtoToEntity(lecturerDto)
+                lecturerDtoView -> dtoToEntity(lecturerDtoView)
         ).collect(Collectors.toList());
     }
 }

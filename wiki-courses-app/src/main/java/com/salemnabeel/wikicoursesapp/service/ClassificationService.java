@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoEdit;
-import com.salemnabeel.wikicoursesapp.mapper.classification.ClassificationMapper;
+import com.salemnabeel.wikicoursesapp.mapper.ClassificationMapper;
 import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;

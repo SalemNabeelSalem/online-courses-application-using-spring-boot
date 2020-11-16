@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.mapper.section;
+package com.salemnabeel.wikicoursesapp.mapper;
 
 import com.salemnabeel.wikicoursesapp.dto.section.SectionDtoView;
 import com.salemnabeel.wikicoursesapp.model.Section;
@@ -13,13 +13,13 @@ public class SectionMapper {
 
     public static SectionDtoView entityToDto(Section section) {
 
-        // SectionDto sectionDto = new SectionDto();
+        // SectionDtoView sectionDtoView = new SectionDto();
 
-        // sectionDto.setId(section.getId());
+        // sectionDtoView.setId(section.getId());
 
-        // sectionDto.setTitle(section.getTitle());
+        // sectionDtoView.setTitle(section.getTitle());
 
-        // sectionDto.setCoverImageLink(section.getCoverImageLink());
+        // sectionDtoView.setCoverImageLink(section.getCoverImageLink());
 
         SectionDtoView sectionDtoView = modelMapper.map(section, SectionDtoView.class);
 
@@ -39,7 +39,7 @@ public class SectionMapper {
 
         // section.setTitle(sectionDto.getTitle());
 
-        // section.setCoverImageLink(sectionDto.getCoverImageLink());
+        // section.setCoverImageLink(sectionDtoView.getCoverImageLink());
 
         Section section = modelMapper.map(sectionDtoView, Section.class);
 

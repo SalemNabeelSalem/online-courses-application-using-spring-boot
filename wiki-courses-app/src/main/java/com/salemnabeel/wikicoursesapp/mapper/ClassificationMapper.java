@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.mapper.classification;
+package com.salemnabeel.wikicoursesapp.mapper;
 
 import com.salemnabeel.wikicoursesapp.dto.classification.ClassificationDtoView;
 import com.salemnabeel.wikicoursesapp.model.Classification;
@@ -13,17 +13,25 @@ public class ClassificationMapper {
 
     public static ClassificationDtoView entityToDto(Classification classification) {
 
-        // ClassificationDto classificationDto = new ClassificationDto();
+        // ClassificationDtoView classificationDtoView = new ClassificationDto();
 
-        // classificationDto.setId(classification.getId());
+        // classificationDtoView.setId(classification.getId());
 
-        // classificationDto.setTitle(classification.getTitle());
+        // classificationDtoView.setTitle(classification.getTitle());
+
+        // classificationDtoView.setBrief(classification.getBrief());
 
         // Section section = classification.getSection();
 
-        // classificationDto.setSectionTitle(section.getTitle());
+        // classificationDtoView.setSectionTitle(section.getTitle());
 
-        // classificationDto.setCoverImageLink(classification.getCoverImageLink());
+        // classificationDtoView.setCoverImageLink(classification.getCoverImageLink());
+
+        // classificationDtoView.setCreatedAt(classification.getCreatedAt());
+
+        // classificationDtoView.setUpdatedAt(classification.getUpdatedAt());
+
+        // classificationDtoView.setIsActive(classification.getIsActive());
 
         ClassificationDtoView classificationDto = modelMapper.map(classification, ClassificationDtoView.class);
 
@@ -45,7 +53,15 @@ public class ClassificationMapper {
 
         // classification.setTitle(classificationDto.getTitle());
 
+        // classification.setBrief(classificationDtoView.getBrief());
+
         // classification.setCoverImageLink(classificationDto.getCoverImageLink());
+
+        // classification.setCreatedAt(classificationDtoView.getCreatedAt());
+
+        // classification.setUpdatedAt(classificationDtoView.getUpdatedAt());
+
+        // classification.setIsActive(classificationDtoView.getIsActive());
 
         Classification classification = modelMapper.map(classificationDto, Classification.class);
 

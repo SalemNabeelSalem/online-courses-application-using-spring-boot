@@ -1,6 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.mapper.section.SectionMapper;
+import com.salemnabeel.wikicoursesapp.mapper.SectionMapper;
 import com.salemnabeel.wikicoursesapp.dto.section.SectionDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Section;

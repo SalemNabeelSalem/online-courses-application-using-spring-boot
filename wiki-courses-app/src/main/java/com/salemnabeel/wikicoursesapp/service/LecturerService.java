@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.mapper.LecturerMapper;
-import com.salemnabeel.wikicoursesapp.dto.view.LecturerDto;
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.repository.LecturerRepository;
@@ -17,40 +17,33 @@ public class LecturerService {
     @Autowired
     private LecturerRepository lecturerRepository;
 
-    @Autowired
-    private LecturerMapper lecturerMapper;
+    public List<LecturerDtoView> getAllLecturers() {
 
-    public List<LecturerDto> getAllActiveLecturers() {
-
-        List<Lecturer> lecturersList = lecturerRepository.getAllActiveLecturers();
-
-        return lecturerMapper.entityToDto(lecturersList);
+        return LecturerMapper.entityToDto(lecturerRepository.findAll());
     }
 
-    public LecturerDto createNewLecturer(Lecturer lecturerRequest) {
+    public List<LecturerDtoView> getAllActiveLecturers() {
+
+        return LecturerMapper.entityToDto(lecturerRepository.getAllActiveLecturers());
+    }
+
+    public LecturerDtoView createNewLecturer(Lecturer lecturerRequest) {
 
         lecturerRequest.setIsActive(true);
 
-        return lecturerMapper.entityToDto(
+        return LecturerMapper.entityToDto(
             lecturerRepository.save(lecturerRequest)
         );
     }
 
-    public List<LecturerDto> getActiveLecturerById(Long lecturerId) {
+    public LecturerDtoView updateLecturerInfoById(Long lecturerId, Lecturer lecturerRequest) {
 
-        List<Lecturer> lecturersList = lecturerRepository.getActiveLecturerById(lecturerId);
+        if (lecturerRepository.findById(lecturerId).isEmpty()) {
 
-        return lecturerMapper.entityToDto(lecturersList);
-    }
-
-    public LecturerDto updateLecturerInfoById(Long lecturerId, Lecturer lecturerRequest) {
-
-        if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
-
-            throw new ResourceNotFoundException("resource not found.");
+            throw new ResourceNotFoundException("lecturer resource not found.");
         }
 
-        Lecturer lecturer = lecturerRepository.getActiveLecturerById(lecturerId).get(0);
+        Lecturer lecturer = lecturerRepository.findById(lecturerId).get();
 
         lecturer.setFullName(lecturerRequest.getFullName());
 
@@ -58,23 +51,21 @@ public class LecturerService {
 
         lecturer.setProfileImageLink(lecturerRequest.getProfileImageLink());
 
-        return lecturerMapper.entityToDto(
-            lecturerRepository.save(lecturer)
-        );
+        lecturer.setIsActive(lecturerRequest.getIsActive());
+
+        return LecturerMapper.entityToDto(lecturerRepository.save(lecturer));
     }
 
-    public ResponseEntity deActivateLecturerById(Long lecturerId) {
+    public ResponseEntity deleteLecturerById(Long lecturerId) {
 
-        if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty()) {
+        if (lecturerRepository.findById(lecturerId).isEmpty()) {
 
-            throw new ResourceNotFoundException("resource not found.");
+            throw new ResourceNotFoundException("lecturer resource not found.");
         }
 
-        Lecturer lecturer = lecturerRepository.getActiveLecturerById(lecturerId).get(0);
+        Lecturer lecturer = lecturerRepository.findById(lecturerId).get();
 
-        lecturer.setIsActive(false);
-
-        lecturerRepository.save(lecturer);
+        lecturerRepository.delete(lecturer);
 
         return ResponseEntity.ok().build();
     }

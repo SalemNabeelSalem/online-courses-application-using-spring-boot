@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
 
-    @Query(value = "SELECT * FROM lecturers WHERE is_active = 1 ORDER BY created_at DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM lecturers WHERE is_active = 1", nativeQuery = true)
     List<Lecturer> getAllActiveLecturers();
 
     @Query(value = "SELECT * FROM lecturers WHERE id = :lecturerId AND is_active = 1", nativeQuery = true)
