@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SectionService {
@@ -19,12 +20,20 @@ public class SectionService {
 
     public List<SectionDtoView> getAllSections() {
 
-        return SectionMapper.entityToDto(sectionRepository.findAll());
+        List<Section> sectionsList = sectionRepository.findAll();
+
+        sectionsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+
+        return SectionMapper.entityToDto(sectionsList);
     }
 
     public List<SectionDtoView> getAllActiveSections() {
 
-        return  SectionMapper.entityToDto(sectionRepository.getAllActiveSections());
+        List<Section> sectionsList = sectionRepository.getAllActiveSections();
+
+        sectionsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+
+        return  SectionMapper.entityToDto(sectionsList);
     }
 
     public SectionDtoView createNewSection(Section sectionRequest) {

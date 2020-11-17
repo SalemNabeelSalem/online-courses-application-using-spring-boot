@@ -26,12 +26,20 @@ public class ClassificationService {
 
     public List<ClassificationDtoView> getAllClassifications() {
 
-        return ClassificationMapper.entityToDto(classificationRepository.findAll());
+        List<Classification> classificationsList = classificationRepository.findAll();
+
+        classificationsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+
+        return ClassificationMapper.entityToDto(classificationsList);
     }
 
     public List<ClassificationDtoView> getAllActiveClassifications() {
 
-        return ClassificationMapper.entityToDto(classificationRepository.getAllActiveClassifications());
+        List<Classification> classificationsList = classificationRepository.getAllActiveClassifications();
+
+        classificationsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+
+        return ClassificationMapper.entityToDto(classificationsList);
     }
 
     public ClassificationDtoView createNewClassification(ClassificationDtoNew classificationDtoNewRequest) {
