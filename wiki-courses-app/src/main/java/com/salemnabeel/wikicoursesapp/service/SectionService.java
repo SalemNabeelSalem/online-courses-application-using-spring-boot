@@ -22,7 +22,7 @@ public class SectionService {
 
         List<Section> sectionsList = sectionRepository.findAll();
 
-        sectionsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+        sectionsList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
 
         return SectionMapper.entityToDto(sectionsList);
     }
@@ -31,7 +31,7 @@ public class SectionService {
 
         List<Section> sectionsList = sectionRepository.getAllActiveSections();
 
-        sectionsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+        sectionsList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
 
         return  SectionMapper.entityToDto(sectionsList);
     }

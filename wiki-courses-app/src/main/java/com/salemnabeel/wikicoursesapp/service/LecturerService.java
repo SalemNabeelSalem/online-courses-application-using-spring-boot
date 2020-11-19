@@ -19,12 +19,20 @@ public class LecturerService {
 
     public List<LecturerDtoView> getAllLecturers() {
 
-        return LecturerMapper.entityToDto(lecturerRepository.findAll());
+        List<Lecturer> lecturersList = lecturerRepository.findAll();
+
+        lecturersList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
+
+        return LecturerMapper.entityToDto(lecturersList);
     }
 
     public List<LecturerDtoView> getAllActiveLecturers() {
 
-        return LecturerMapper.entityToDto(lecturerRepository.getAllActiveLecturers());
+        List<Lecturer> lecturersList = lecturerRepository.getAllActiveLecturers();
+
+        lecturersList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
+
+        return LecturerMapper.entityToDto(lecturersList);
     }
 
     public LecturerDtoView createNewLecturer(Lecturer lecturerRequest) {
