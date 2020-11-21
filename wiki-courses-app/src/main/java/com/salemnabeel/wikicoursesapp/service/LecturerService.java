@@ -55,6 +55,10 @@ public class LecturerService {
 
         lecturer.setFullName(lecturerRequest.getFullName());
 
+        lecturer.setGender(lecturerRequest.getGender());
+
+        lecturer.setDescription(lecturerRequest.getDescription());
+
         lecturer.setEmail(lecturerRequest.getEmail());
 
         lecturer.setProfileImageLink(lecturerRequest.getProfileImageLink());
