@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,14 @@ public class WikiCoursesAppApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(WikiCoursesAppApplication.class, args);
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		String rawPassword = "12345";
+
+		String encodedPassword = encoder.encode(rawPassword);
+
+		System.out.println("Password Encoder of 12345 => [ " + encodedPassword + " ]");
 	}
 
 	@GetMapping("/test-api")

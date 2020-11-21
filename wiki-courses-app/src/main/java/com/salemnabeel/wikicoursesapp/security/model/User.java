@@ -6,19 +6,19 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "employees")
-public class Employee {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
 
     private String password;
 
-    private boolean active;
-
     private String role;
+
+    private boolean active;
 }

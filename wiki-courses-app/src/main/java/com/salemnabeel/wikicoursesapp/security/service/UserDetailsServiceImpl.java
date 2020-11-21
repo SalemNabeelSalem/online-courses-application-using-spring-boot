@@ -1,8 +1,8 @@
 package com.salemnabeel.wikicoursesapp.security.service;
 
-import com.salemnabeel.wikicoursesapp.security.model.Employee;
-import com.salemnabeel.wikicoursesapp.security.model.EmployeeDetails;
-import com.salemnabeel.wikicoursesapp.security.repository.EmployeeRepository;
+import com.salemnabeel.wikicoursesapp.security.model.User;
+import com.salemnabeel.wikicoursesapp.security.model.MyUserDetails;
+import com.salemnabeel.wikicoursesapp.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,18 +12,18 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class EmployeeService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        Optional<Employee> employee = employeeRepository.findByUserName(userName);
+        Optional<User> user = userRepository.getUserByUserName(userName);
 
-        employee.orElseThrow(() -> new UsernameNotFoundException("Not found: " + userName));
+        user.orElseThrow(() -> new UsernameNotFoundException("[" + userName + "] could not found."));
 
-        return employee.map(EmployeeDetails::new).get();
+        return new MyUserDetails(user.get());
     }
 }

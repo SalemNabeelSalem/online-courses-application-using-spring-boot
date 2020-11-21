@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmployeeController {
+public class UserController {
 
     @GetMapping("/home")
     public String home() {
@@ -12,10 +12,10 @@ public class EmployeeController {
         return ("<h1>Welcome Home</h1>");
     }
 
-    @GetMapping("/lecturer")
-    public String lecturer() {
+    @GetMapping("/user")
+    public String user() {
 
-        return ("<h1>Welcome Lecturer</h1>");
+        return ("<h1>Welcome User</h1>");
     }
 
     @GetMapping("/admin")
