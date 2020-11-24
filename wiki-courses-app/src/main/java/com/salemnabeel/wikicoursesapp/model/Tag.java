@@ -1,7 +1,9 @@
 package com.salemnabeel.wikicoursesapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,8 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "tags")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tag extends AuditModel {
 
     @Id
@@ -21,8 +25,7 @@ public class Tag extends AuditModel {
     @Column(length = 45, nullable = false)
     private String title;
 
-    @JsonIgnore
     @JoinColumn(name = "course_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     private Course course;
 }

@@ -24,70 +24,74 @@ public class CourseMapper {
 
         // CourseDto courseDto = modelMapper.map(course, CourseDto.class);
 
-        CourseDto courseDto = new CourseDto();
+//        CourseDto courseDto = new CourseDto();
 
         // For Course Id
-        courseDto.setId(course.getId());
+//        courseDto.setId(course.getId());
 
         // For Course Title
-        courseDto.setTitle(course.getTitle());
+//        courseDto.setTitle(course.getTitle());
 
         // For Course Source Url
-        courseDto.setSourceUrl(course.getSourceUrl());
+//        courseDto.setSourceUrl(course.getSourceUrl());
 
-        Classification classification = course.getClassification();
+//        Classification classification = course.getClassification();
 
-        Section section = classification.getSection();
+//        Section section = classification.getSection();
 
         // For Section Title
-        courseDto.setSection(section.getTitle());
+//        courseDto.setSection(section.getTitle());
 
         // For Classification Title
-        courseDto.setClassification(classification.getTitle());
+//        courseDto.setClassification(classification.getTitle());
 
         // For Course Description
-        courseDto.setDescription(course.getDescription());
+//        courseDto.setDescription(course.getDescription());
 
         // For Course Cover Image Link
-        courseDto.setCoverImageLink(course.getCoverImageLink());
+//        courseDto.setCoverImageLink(course.getCoverImageLink());
 
-        Lecturer lecturer = course.getLecturer();
+//        Lecturer lecturer = course.getLecturer();
 
         // For Lecturer Full Name
-        courseDto.setLecturer(lecturer.getFullName());
+//        courseDto.setLecturer(lecturer.getFullName());
 
         // For Course Language
-        courseDto.setLanguage(course.getLanguage());
+//        courseDto.setLanguage(course.getLanguage());
 
         // For Course Created Date
-        courseDto.setCreatedDate(course.getCreatedAt());
+//        courseDto.setCreatedDate(course.getCreatedAt());
 
         // For The Course Tags
-        courseDto.setTags(tagMapper.entityToDto(course.getTags()));
+//        courseDto.setTags(tagMapper.entityToDto(course.getTags()));
 
-        return courseDto;
+        return null;
     }
 
     public List<CourseDto> entityToDto(List<Course> coursesList) {
 
-        return coursesList.stream().map(
-            course -> entityToDto(course)
-        ).collect(Collectors.toList());
+//        return coursesList.stream().map(
+//            course -> entityToDto(course)
+//        ).collect(Collectors.toList());
+
+        return null;
     }
 
     public Course dtoToEntity(CourseDto courseDto) {
 
-        ModelMapper modelMapper = new ModelMapper();
-
-        Course course = modelMapper.map(courseDto, Course.class);
-
-        return course;
+//        ModelMapper modelMapper = new ModelMapper();
+//
+//        Course course = modelMapper.map(courseDto, Course.class);
+//
+        return null;
     }
 
     public List<Course> dtoToEntity(List<CourseDto> coursesDtoList) {
 
-        return coursesDtoList.stream().map(
-            courseDto -> dtoToEntity(courseDto)
-        ).collect(Collectors.toList());
+//        return coursesDtoList.stream().map(
+//            courseDto -> dtoToEntity(courseDto)
+//        ).collect(Collectors.toList());
+
+        return null;
     }
 }

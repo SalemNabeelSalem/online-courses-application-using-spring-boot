@@ -3,8 +3,6 @@ package com.salemnabeel.wikicoursesapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salemnabeel.wikicoursesapp.model.enums.Language;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,19 +20,13 @@ public class Course extends AuditModel {
 
     @NotNull
     @Size(max = 255, min = 2)
-    @Column(length = 255, unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String title;
 
     @NotNull
     @Size(max = 255, min = 2)
-    @Column(name = "source_url", length = 255, unique = true, nullable = false)
+    @Column(name = "source_url", unique = true, nullable = false)
     private String sourceUrl;
-
-    @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "classification_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Classification classification;
 
     @NotNull
     @Size(max = 255, min = 2)
@@ -43,13 +35,15 @@ public class Course extends AuditModel {
 
     @NotNull
     @Size(max = 255, min = 2)
-    @Column(name = "cover_image_link", length = 255, nullable = false)
+    @Column(name = "cover_image_link", nullable = false)
     private String coverImageLink;
 
-    @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
+    @JoinColumn(name = "classification_id", nullable = false)
+    private Classification classification;
+
+    @ManyToOne
     @JoinColumn(name = "lecturer_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Lecturer lecturer;
 
     @NotNull
@@ -63,8 +57,7 @@ public class Course extends AuditModel {
     @JsonIgnore
     @OneToMany(
         mappedBy = "course",
-        fetch = FetchType.LAZY,
-        cascade = CascadeType.ALL
+        fetch = FetchType.EAGER
     )
     private List<Tag> tags;
 }
