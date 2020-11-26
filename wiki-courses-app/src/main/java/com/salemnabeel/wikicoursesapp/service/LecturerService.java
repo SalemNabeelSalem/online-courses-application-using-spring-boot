@@ -35,16 +35,16 @@ public class LecturerService {
         return LecturerMapper.entityToDto(lecturersList);
     }
 
-    public LecturerDtoView createNewLecturer(Lecturer lecturerRequest) {
+    public LecturerDtoView createNewLecturer(Lecturer lecturerNew) {
 
-        lecturerRequest.setIsActive(true);
+        lecturerNew.setIsActive(true);
 
         return LecturerMapper.entityToDto(
-            lecturerRepository.save(lecturerRequest)
+            lecturerRepository.save(lecturerNew)
         );
     }
 
-    public LecturerDtoView updateLecturerInfoById(Long lecturerId, Lecturer lecturerRequest) {
+    public LecturerDtoView updateLecturerInfoById(Long lecturerId, Lecturer lecturerNew) {
 
         if (lecturerRepository.findById(lecturerId).isEmpty()) {
 
@@ -53,17 +53,17 @@ public class LecturerService {
 
         Lecturer lecturer = lecturerRepository.findById(lecturerId).get();
 
-        lecturer.setFullName(lecturerRequest.getFullName());
+        lecturer.setFullName(lecturerNew.getFullName());
 
-        lecturer.setGender(lecturerRequest.getGender());
+        lecturer.setGender(lecturerNew.getGender());
 
-        lecturer.setDescription(lecturerRequest.getDescription());
+        lecturer.setDescription(lecturerNew.getDescription());
 
-        lecturer.setEmail(lecturerRequest.getEmail());
+        lecturer.setEmail(lecturerNew.getEmail());
 
-        lecturer.setProfileImageLink(lecturerRequest.getProfileImageLink());
+        lecturer.setProfileImageLink(lecturerNew.getProfileImageLink());
 
-        lecturer.setIsActive(lecturerRequest.getIsActive());
+        lecturer.setIsActive(lecturerNew.getIsActive());
 
         return LecturerMapper.entityToDto(lecturerRepository.save(lecturer));
     }

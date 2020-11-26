@@ -36,14 +36,14 @@ public class SectionService {
         return  SectionMapper.entityToDto(sectionsList);
     }
 
-    public SectionDtoView createNewSection(Section sectionRequest) {
+    public SectionDtoView createNewSection(Section sectionNew) {
 
-        sectionRequest.setIsActive(true);
+        sectionNew.setIsActive(true);
 
-        return SectionMapper.entityToDto(sectionRepository.save(sectionRequest));
+        return SectionMapper.entityToDto(sectionRepository.save(sectionNew));
     }
 
-    public SectionDtoView updateSectionInfoById(Long sectionId, Section sectionRequest) {
+    public SectionDtoView updateSectionInfoById(Long sectionId, Section sectionNew) {
 
         if (sectionRepository.findById(sectionId).isEmpty()) {
 
@@ -52,13 +52,13 @@ public class SectionService {
 
         Section section = sectionRepository.findById(sectionId).get();
 
-        section.setTitle(sectionRequest.getTitle());
+        section.setTitle(sectionNew.getTitle());
 
-        section.setBrief(sectionRequest.getBrief());
+        section.setBrief(sectionNew.getBrief());
 
-        section.setCoverImageLink(sectionRequest.getCoverImageLink());
+        section.setCoverImageLink(sectionNew.getCoverImageLink());
 
-        section.setIsActive(sectionRequest.getIsActive());
+        section.setIsActive(sectionNew.getIsActive());
 
         return SectionMapper.entityToDto(sectionRepository.save(section));
     }

@@ -1,10 +1,10 @@
-package com.salemnabeel.wikicoursesapp.dto.create;
+package com.salemnabeel.wikicoursesapp.dto.course;
 
 import com.salemnabeel.wikicoursesapp.model.enums.Language;
 import lombok.Data;
 
 @Data
-public class CourseDtoCreate {
+public class CourseDtoNew {
 
     private String title;
 

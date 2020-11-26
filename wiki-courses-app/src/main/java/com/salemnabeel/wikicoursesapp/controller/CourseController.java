@@ -1,7 +1,7 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
+import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoView;
-import com.salemnabeel.wikicoursesapp.model.Course;
 import com.salemnabeel.wikicoursesapp.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,9 @@ public class CourseController {
         return courseService.getAllActiveCourses();
     }
 
-    @PostMapping("/add-course")
-    public Course createNewCourse(@RequestBody Course courseRequest) {
+    @PostMapping("/add-courses")
+    public CourseDtoView createNewCourse(@RequestBody CourseDtoNew courseDtoNewRequest) {
 
-        return courseService.createNewCourse(courseRequest);
+        return courseService.createNewCourse(courseDtoNewRequest);
     }
 }

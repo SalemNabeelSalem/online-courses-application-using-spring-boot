@@ -42,9 +42,9 @@ public class ClassificationService {
         return ClassificationMapper.entityToDto(classificationsList);
     }
 
-    public ClassificationDtoView createNewClassification(ClassificationDtoNew classificationDtoNewRequest) {
+    public ClassificationDtoView createNewClassification(ClassificationDtoNew classificationDtoNew) {
 
-        Long sectionId = classificationDtoNewRequest.getSectionId();
+        Long sectionId = classificationDtoNew.getSectionId();
 
         if (sectionRepository.findById(sectionId).isEmpty()) {
 
@@ -55,13 +55,13 @@ public class ClassificationService {
 
         Classification classification = new Classification();
 
-        classification.setTitle(classificationDtoNewRequest.getTitle());
+        classification.setTitle(classificationDtoNew.getTitle());
 
-        classification.setBrief(classificationDtoNewRequest.getBrief());
+        classification.setBrief(classificationDtoNew.getBrief());
 
         classification.setSection(section);
 
-        classification.setCoverImageLink(classificationDtoNewRequest.getCoverImageLink());
+        classification.setCoverImageLink(classificationDtoNew.getCoverImageLink());
 
         classification.setIsActive(true);
 
@@ -69,7 +69,7 @@ public class ClassificationService {
     }
 
     public ClassificationDtoView updateClassificationInfoById(
-            Long classificationId, ClassificationDtoEdit classificationDtoEditRequest) {
+            Long classificationId, ClassificationDtoEdit classificationDtoEdit) {
 
         if (classificationRepository.findById(classificationId).isEmpty()) {
 
@@ -78,22 +78,22 @@ public class ClassificationService {
 
         Classification classification = classificationRepository.findById(classificationId).get();
 
-        if (sectionRepository.findById(classificationDtoEditRequest.getSectionId()).isEmpty()) {
+        if (sectionRepository.findById(classificationDtoEdit.getSectionId()).isEmpty()) {
 
             throw new ResourceNotFoundException("section resource not found.");
         }
 
-        Section section = sectionRepository.findById(classificationDtoEditRequest.getSectionId()).get();
+        Section section = sectionRepository.findById(classificationDtoEdit.getSectionId()).get();
 
-        classification.setTitle(classificationDtoEditRequest.getTitle());
+        classification.setTitle(classificationDtoEdit.getTitle());
 
-        classification.setBrief(classificationDtoEditRequest.getBrief());
+        classification.setBrief(classificationDtoEdit.getBrief());
 
         classification.setSection(section);
 
-        classification.setCoverImageLink(classificationDtoEditRequest.getCoverImageLink());
+        classification.setCoverImageLink(classificationDtoEdit.getCoverImageLink());
 
-        classification.setIsActive(classificationDtoEditRequest.getIsActive());
+        classification.setIsActive(classificationDtoEdit.getIsActive());
 
         return ClassificationMapper.entityToDto(
             classificationRepository.save(classification)

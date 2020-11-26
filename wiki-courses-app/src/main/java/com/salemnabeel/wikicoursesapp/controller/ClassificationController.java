@@ -44,8 +44,7 @@ public class ClassificationController {
     }
 
     @DeleteMapping("/delete-classification/{classification-id}")
-    public ResponseEntity deleteClassificationById(
-            @PathVariable("classification-id") Long classificationId) {
+    public ResponseEntity deleteClassificationById(@PathVariable("classification-id") Long classificationId) {
 
         return classificationService.deleteClassificationById(classificationId);
     }
