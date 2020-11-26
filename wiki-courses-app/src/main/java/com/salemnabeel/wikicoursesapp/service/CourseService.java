@@ -1,18 +1,10 @@
 package com.salemnabeel.wikicoursesapp.service;
 
-import com.salemnabeel.wikicoursesapp.dto.create.CourseDtoCreate;
+import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoView;
 import com.salemnabeel.wikicoursesapp.mapper.CourseMapper;
-import com.salemnabeel.wikicoursesapp.dto.view.CourseDto;
-import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
-import com.salemnabeel.wikicoursesapp.model.Classification;
 import com.salemnabeel.wikicoursesapp.model.Course;
-import com.salemnabeel.wikicoursesapp.model.Lecturer;
-import com.salemnabeel.wikicoursesapp.model.enums.Language;
-import com.salemnabeel.wikicoursesapp.repository.ClassificationRepository;
 import com.salemnabeel.wikicoursesapp.repository.CourseRepository;
-import com.salemnabeel.wikicoursesapp.repository.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,128 +15,27 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    @Autowired
-    private LecturerRepository lecturerRepository;
+    public List<CourseDtoView> getAllCourses() {
 
-    @Autowired
-    private ClassificationRepository classificationRepository;
+        List<Course> coursesList = courseRepository.findAll();
 
-    @Autowired
-    private CourseMapper courseMapper;
+        coursesList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
 
-    public List<Course> getAllCourses() {
-
-        return courseRepository.findAll();
+        return CourseMapper.entityToDto(coursesList);
     }
 
-//    public List<CourseDto> getAllActiveCoursesBySectionAndClassificationId(Long sectionId, Long classificationId) {
-//
-//        List<Course> coursesList = courseRepository.getAllActiveCoursesBySectionAndClassificationId(
-//                sectionId, classificationId);
-//
-//        return courseMapper.entityToDto(coursesList);
-//    }
-//
-//    public List<CourseDto> getAllActiveCoursesByLecturerId(Long lecturerId) {
-//
-//        List<Course> coursesList = courseRepository.getAllActiveCoursesByLecturerId(lecturerId);
-//
-//        return courseMapper.entityToDto(coursesList);
-//    }
-//
-//    public CourseDto createNewCourse(CourseDtoCreate courseDtoCreateRequest) {
-//
-//        String courseTitle = courseDtoCreateRequest.getTitle();
-//
-//        String courseSourceUrl = courseDtoCreateRequest.getSourceUrl();
-//
-//        String courseDescription = courseDtoCreateRequest.getDescription();
-//
-//        String courseCoverImageLink = courseDtoCreateRequest.getCoverImageLink();
-//
-//        Language courseLanguage = courseDtoCreateRequest.getLanguage();
-//
-//        Long classificationId = courseDtoCreateRequest.getClassificationId();
-//
-//        Classification classification = classificationRepository.findById(classificationId).get();
-//
-//        Long sectionId = classification.getSection().getId();
-//
-//        Long lecturerId = courseDtoCreateRequest.getLecturerId();
-//
-//        if (lecturerRepository.getActiveLecturerById(lecturerId).isEmpty() ||
-//            classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).isEmpty()) {
-//
-//            throw new ResourceNotFoundException("resource not found.");
-//        }
-//
-//        Lecturer lecturer = lecturerRepository.getActiveLecturerById(lecturerId).get(0);
-//
-//        classification = classificationRepository.getActiveClassificationBySectionId(sectionId, classificationId).get(0);
-//
-//        Course course = new Course();
-//
-//        course.setTitle(courseTitle);
-//
-//        course.setSourceUrl(courseSourceUrl);
-//
-//        course.setClassification(classification);
-//
-//        course.setDescription(courseDescription);
-//
-//        course.setCoverImageLink(courseCoverImageLink);
-//
-//        course.setLecturer(lecturer);
-//
-//        course.setLanguage(courseLanguage);
-//
-//        course.setIsActive(true);
-//
-//        return courseMapper.entityToDto(
-//            courseRepository.save(course)
-//        );
-//    }
-//
-//    public List<CourseDto> getActiveCourseByLecturerId(Long lecturerId, Long courseId) {
-//
-//        List<Course> coursesList = courseRepository.getActiveCourseByLecturerId(lecturerId, courseId);
-//
-//        return courseMapper.entityToDto(coursesList);
-//    }
-//
-//    public CourseDto updateCourseInfoByLecturerId(Long lecturerId, Long courseId, Course courseRequest) {
-//
-//        if (courseRepository.getActiveCourseByLecturerId(lecturerId, courseId).isEmpty()) {
-//
-//            throw new ResourceNotFoundException("resource not found.");
-//        }
-//
-//        Course course = courseRepository.getActiveCourseByLecturerId(lecturerId, courseId).get(0);
-//
-//        course.setTitle(courseRequest.getTitle());
-//
-//        course.setSourceUrl(courseRequest.getSourceUrl());
-//
-//        course.setDescription(courseRequest.getDescription());
-//
-//        return courseMapper.entityToDto(
-//            courseRepository.save(course)
-//        );
-//    }
-//
-//    public ResponseEntity deActivateCourseByLecturerId(Long lecturerId, Long courseId) {
-//
-//        if (courseRepository.getActiveCourseByLecturerId(lecturerId, courseId).isEmpty()) {
-//
-//            throw new ResourceNotFoundException("resource not found.");
-//        }
-//
-//        Course course = courseRepository.getActiveCourseByLecturerId(lecturerId, courseId).get(0);
-//
-//        course.setIsActive(false);
-//
-//        courseRepository.save(course);
-//
-//        return ResponseEntity.ok().build();
-//    }
+    public List<CourseDtoView> getAllActiveCourses() {
+
+        List<Course> coursesList = courseRepository.getAllActiveCourses();
+
+        coursesList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
+
+        return CourseMapper.entityToDto(coursesList);
+    }
+
+    public Course createNewCourse(Course courseRequest) {
+
+        courseRequest.setIsActive(true);
+        return courseRepository.save(courseRequest);
+    }
 }

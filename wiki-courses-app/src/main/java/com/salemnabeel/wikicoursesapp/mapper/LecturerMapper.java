@@ -23,7 +23,7 @@ public class LecturerMapper {
     public static List<LecturerDtoView> entityToDto(List<Lecturer> lecturersList) {
 
         return lecturersList.stream().map(
-            lecturer -> entityToDto(lecturer)
+            obj -> entityToDto(obj)
         ).collect(Collectors.toList());
     }
 
@@ -37,7 +37,7 @@ public class LecturerMapper {
     public static List<Lecturer> dtoToEntity(List<LecturerDtoView> lecturersDtoList) {
 
         return lecturersDtoList.stream().map(
-                lecturerDtoView -> dtoToEntity(lecturerDtoView)
+            obj -> dtoToEntity(obj)
         ).collect(Collectors.toList());
     }
 }

@@ -28,16 +28,18 @@ public class SectionMapper {
 
     public static List<SectionDtoView> entityToDto(List<Section> sectionsList) {
 
-        return sectionsList.stream().map(section -> entityToDto(section)).collect(Collectors.toList());
+        return sectionsList.stream().map(
+            obj -> entityToDto(obj)
+        ).collect(Collectors.toList());
     }
 
     public static Section dtoToEntity(SectionDtoView sectionDtoView) {
 
         // Section section = new Section();
 
-        // section.setId(sectionDto.getId());
+        // section.setId(sectionDtoView.getId());
 
-        // section.setTitle(sectionDto.getTitle());
+        // section.setTitle(sectionDtoView.getTitle());
 
         // section.setCoverImageLink(sectionDtoView.getCoverImageLink());
 
@@ -49,7 +51,7 @@ public class SectionMapper {
     public static List<Section> dtoToEntity(List<SectionDtoView> sectionsDtoList) {
 
         return sectionsDtoList.stream().map(
-            sectionDtoView -> dtoToEntity(sectionDtoView)
+            obj -> dtoToEntity(obj)
         ).collect(Collectors.toList());
     }
 }

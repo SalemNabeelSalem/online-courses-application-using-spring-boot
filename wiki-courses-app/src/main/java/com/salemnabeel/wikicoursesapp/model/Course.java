@@ -1,13 +1,11 @@
 package com.salemnabeel.wikicoursesapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salemnabeel.wikicoursesapp.model.enums.Language;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +26,10 @@ public class Course extends AuditModel {
     @Column(name = "source_url", unique = true, nullable = false)
     private String sourceUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "classification_id", nullable = false)
+    private Classification classification;
+
     @NotNull
     @Size(max = 255, min = 2)
     @Column(nullable = false)
@@ -37,10 +39,6 @@ public class Course extends AuditModel {
     @Size(max = 255, min = 2)
     @Column(name = "cover_image_link", nullable = false)
     private String coverImageLink;
-
-    @ManyToOne
-    @JoinColumn(name = "classification_id", nullable = false)
-    private Classification classification;
 
     @ManyToOne
     @JoinColumn(name = "lecturer_id", nullable = false)
@@ -53,11 +51,4 @@ public class Course extends AuditModel {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
-
-    @JsonIgnore
-    @OneToMany(
-        mappedBy = "course",
-        fetch = FetchType.EAGER
-    )
-    private List<Tag> tags;
 }

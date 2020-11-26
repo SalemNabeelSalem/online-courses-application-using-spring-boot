@@ -25,7 +25,7 @@ public class Tag extends AuditModel {
     @Column(length = 45, nullable = false)
     private String title;
 
-    @JoinColumn(name = "course_id", nullable = false)
     @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 }

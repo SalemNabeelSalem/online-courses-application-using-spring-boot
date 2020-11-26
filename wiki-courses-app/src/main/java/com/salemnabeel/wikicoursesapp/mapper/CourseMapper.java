@@ -1,97 +1,41 @@
 package com.salemnabeel.wikicoursesapp.mapper;
 
-import com.salemnabeel.wikicoursesapp.dto.view.CourseDto;
-import com.salemnabeel.wikicoursesapp.model.Classification;
+import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoView;
 import com.salemnabeel.wikicoursesapp.model.Course;
-import com.salemnabeel.wikicoursesapp.model.Lecturer;
-import com.salemnabeel.wikicoursesapp.model.Section;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class CourseMapper {
 
-    @Autowired
-    TagMapper tagMapper;
+    public static ModelMapper modelMapper = new ModelMapper();
 
-    public CourseDto entityToDto(Course course) {
+    public static CourseDtoView entityToDto(Course course) {
 
-        // ModelMapper modelMapper = new ModelMapper();
+        CourseDtoView courseDtoView = modelMapper.map(course, CourseDtoView.class);
 
-        // CourseDto courseDto = modelMapper.map(course, CourseDto.class);
-
-//        CourseDto courseDto = new CourseDto();
-
-        // For Course Id
-//        courseDto.setId(course.getId());
-
-        // For Course Title
-//        courseDto.setTitle(course.getTitle());
-
-        // For Course Source Url
-//        courseDto.setSourceUrl(course.getSourceUrl());
-
-//        Classification classification = course.getClassification();
-
-//        Section section = classification.getSection();
-
-        // For Section Title
-//        courseDto.setSection(section.getTitle());
-
-        // For Classification Title
-//        courseDto.setClassification(classification.getTitle());
-
-        // For Course Description
-//        courseDto.setDescription(course.getDescription());
-
-        // For Course Cover Image Link
-//        courseDto.setCoverImageLink(course.getCoverImageLink());
-
-//        Lecturer lecturer = course.getLecturer();
-
-        // For Lecturer Full Name
-//        courseDto.setLecturer(lecturer.getFullName());
-
-        // For Course Language
-//        courseDto.setLanguage(course.getLanguage());
-
-        // For Course Created Date
-//        courseDto.setCreatedDate(course.getCreatedAt());
-
-        // For The Course Tags
-//        courseDto.setTags(tagMapper.entityToDto(course.getTags()));
-
-        return null;
+        return courseDtoView;
     }
 
-    public List<CourseDto> entityToDto(List<Course> coursesList) {
+    public static List<CourseDtoView> entityToDto(List<Course> coursesList) {
 
-//        return coursesList.stream().map(
-//            course -> entityToDto(course)
-//        ).collect(Collectors.toList());
-
-        return null;
+        return coursesList.stream().map(
+            obj -> entityToDto(obj)
+        ).collect(Collectors.toList());
     }
 
-    public Course dtoToEntity(CourseDto courseDto) {
+    public static Course dtoToEntity(CourseDtoView courseDtoView) {
 
-//        ModelMapper modelMapper = new ModelMapper();
-//
-//        Course course = modelMapper.map(courseDto, Course.class);
-//
-        return null;
+        Course course = modelMapper.map(courseDtoView, Course.class);
+
+        return course;
     }
 
-    public List<Course> dtoToEntity(List<CourseDto> coursesDtoList) {
+    public static List<Course> dtoToEntity(List<CourseDtoView> coursesDtoList) {
 
-//        return coursesDtoList.stream().map(
-//            courseDto -> dtoToEntity(courseDto)
-//        ).collect(Collectors.toList());
-
-        return null;
+        return coursesDtoList.stream().map(
+            obj -> dtoToEntity(obj)
+        ).collect(Collectors.toList());
     }
 }

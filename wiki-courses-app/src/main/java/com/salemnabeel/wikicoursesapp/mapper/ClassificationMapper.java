@@ -13,26 +13,6 @@ public class ClassificationMapper {
 
     public static ClassificationDtoView entityToDto(Classification classification) {
 
-        // ClassificationDtoView classificationDtoView = new ClassificationDto();
-
-        // classificationDtoView.setId(classification.getId());
-
-        // classificationDtoView.setTitle(classification.getTitle());
-
-        // classificationDtoView.setBrief(classification.getBrief());
-
-        // Section section = classification.getSection();
-
-        // classificationDtoView.setSectionTitle(section.getTitle());
-
-        // classificationDtoView.setCoverImageLink(classification.getCoverImageLink());
-
-        // classificationDtoView.setCreatedAt(classification.getCreatedAt());
-
-        // classificationDtoView.setUpdatedAt(classification.getUpdatedAt());
-
-        // classificationDtoView.setIsActive(classification.getIsActive());
-
         ClassificationDtoView classificationDto = modelMapper.map(classification, ClassificationDtoView.class);
 
         return classificationDto;
@@ -41,27 +21,11 @@ public class ClassificationMapper {
     public static List<ClassificationDtoView> entityToDto(List<Classification> classificationsList) {
 
         return classificationsList.stream().map(
-            classification -> entityToDto(classification)
+            obj -> entityToDto(obj)
         ).collect(Collectors.toList());
     }
 
     public static Classification dtoToEntity(ClassificationDtoView classificationDto) {
-
-        // Classification classification = new Classification();
-
-        // classification.setId(classificationDto.getId());
-
-        // classification.setTitle(classificationDto.getTitle());
-
-        // classification.setBrief(classificationDtoView.getBrief());
-
-        // classification.setCoverImageLink(classificationDto.getCoverImageLink());
-
-        // classification.setCreatedAt(classificationDtoView.getCreatedAt());
-
-        // classification.setUpdatedAt(classificationDtoView.getUpdatedAt());
-
-        // classification.setIsActive(classificationDtoView.getIsActive());
 
         Classification classification = modelMapper.map(classificationDto, Classification.class);
 
@@ -70,7 +34,7 @@ public class ClassificationMapper {
 
     public static List<Classification> dtoToEntity(List<ClassificationDtoView> classificationsDtoList) {
         return classificationsDtoList.stream().map(
-            classificationDto -> dtoToEntity(classificationDto)
+                obj -> dtoToEntity(obj)
         ).collect(Collectors.toList());
     }
 }

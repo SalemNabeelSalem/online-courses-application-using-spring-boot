@@ -28,7 +28,7 @@ public class ClassificationService {
 
         List<Classification> classificationsList = classificationRepository.findAll();
 
-        classificationsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+        classificationsList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
 
         return ClassificationMapper.entityToDto(classificationsList);
     }
@@ -37,7 +37,7 @@ public class ClassificationService {
 
         List<Classification> classificationsList = classificationRepository.getAllActiveClassifications();
 
-        classificationsList.sort((o1, o2) -> o2.getId().compareTo(o1.getId()));
+        classificationsList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
 
         return ClassificationMapper.entityToDto(classificationsList);
     }
