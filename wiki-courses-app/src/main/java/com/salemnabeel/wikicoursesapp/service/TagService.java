@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
+import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoEdit;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
@@ -58,6 +59,33 @@ public class TagService {
         tag.setCourse(course);
 
         tag.setIsActive(true);
+
+        return TagMapper.entityToDto(tagRepository.save(tag));
+    }
+
+    public TagDtoView updateTagInfoById(Long tagId, TagDtoEdit tagDtoEdit) {
+
+        if (tagRepository.findById(tagId).isEmpty()) {
+
+            throw new ResourceNotFoundException("tag resource not found.");
+        }
+
+        Tag tag = tagRepository.findById(tagId).get();
+
+        Long courseId = tagDtoEdit.getCourseId();
+
+        if (courseRepository.findById(courseId).isEmpty()) {
+
+            throw new ResourceNotFoundException("course resource not found.");
+        }
+
+        Course course = courseRepository.findById(courseId).get();
+
+        tag.setTitle(tagDtoEdit.getTitle());
+
+        tag.setCourse(course);
+
+        tag.setIsActive(tagDtoEdit.getIsActive());
 
         return TagMapper.entityToDto(tagRepository.save(tag));
     }

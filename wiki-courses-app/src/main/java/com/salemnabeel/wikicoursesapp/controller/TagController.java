@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
+import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoEdit;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoView;
 import com.salemnabeel.wikicoursesapp.service.TagService;
@@ -32,5 +33,12 @@ public class TagController {
     public TagDtoView createNewTag(@Valid @RequestBody TagDtoNew sectionDtoNewRequest) {
 
         return tagService.createNewTag(sectionDtoNewRequest);
+    }
+
+    @PutMapping("/edit-tag/{tag-id}")
+    public TagDtoView updateTagInfoById(@PathVariable("tag-id") Long tagId,
+                                        @Valid @RequestBody TagDtoEdit tagDtoEditRequest) {
+
+        return tagService.updateTagInfoById(tagId, tagDtoEditRequest);
     }
 }
