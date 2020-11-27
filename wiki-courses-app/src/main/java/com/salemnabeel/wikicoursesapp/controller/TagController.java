@@ -1,12 +1,12 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
+import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoView;
 import com.salemnabeel.wikicoursesapp.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,5 +26,11 @@ public class TagController {
     public List<TagDtoView> getAllActiveTags() {
 
         return tagService.getAllActiveTags();
+    }
+
+    @PostMapping("/add-tag")
+    public TagDtoView createNewTag(@Valid @RequestBody TagDtoNew sectionDtoNewRequest) {
+
+        return tagService.createNewTag(sectionDtoNewRequest);
     }
 }
