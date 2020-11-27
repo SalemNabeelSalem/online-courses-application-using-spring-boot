@@ -10,6 +10,7 @@ import com.salemnabeel.wikicoursesapp.model.Tag;
 import com.salemnabeel.wikicoursesapp.repository.CourseRepository;
 import com.salemnabeel.wikicoursesapp.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -88,5 +89,19 @@ public class TagService {
         tag.setIsActive(tagDtoEdit.getIsActive());
 
         return TagMapper.entityToDto(tagRepository.save(tag));
+    }
+
+    public ResponseEntity deleteTagById(Long tagId) {
+
+        if (tagRepository.findById(tagId).isEmpty()) {
+
+            throw new ResourceNotFoundException("tag resource not found.");
+        }
+
+        Tag tag = tagRepository.findById(tagId).get();
+
+        tagRepository.delete(tag);
+
+        return ResponseEntity.ok().build();
     }
 }

@@ -5,6 +5,7 @@ import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoView;
 import com.salemnabeel.wikicoursesapp.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,5 +41,11 @@ public class TagController {
                                         @Valid @RequestBody TagDtoEdit tagDtoEditRequest) {
 
         return tagService.updateTagInfoById(tagId, tagDtoEditRequest);
+    }
+
+    @DeleteMapping("/delete-tag/{tag-id}")
+    public ResponseEntity deleteTagById(@PathVariable("tag-id") Long tagId) {
+
+        return tagService.deleteTagById(tagId);
     }
 }
