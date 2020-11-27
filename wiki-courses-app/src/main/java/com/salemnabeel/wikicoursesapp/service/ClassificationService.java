@@ -68,8 +68,8 @@ public class ClassificationService {
         return ClassificationMapper.entityToDto(classificationRepository.save(classification));
     }
 
-    public ClassificationDtoView updateClassificationInfoById(
-            Long classificationId, ClassificationDtoEdit classificationDtoEdit) {
+    public ClassificationDtoView updateClassificationInfoById(Long classificationId,
+                                                              ClassificationDtoEdit classificationDtoEdit) {
 
         if (classificationRepository.findById(classificationId).isEmpty()) {
 
@@ -95,9 +95,7 @@ public class ClassificationService {
 
         classification.setIsActive(classificationDtoEdit.getIsActive());
 
-        return ClassificationMapper.entityToDto(
-            classificationRepository.save(classification)
-        );
+        return ClassificationMapper.entityToDto(classificationRepository.save(classification));
     }
 
     public ResponseEntity deleteClassificationById(Long classificationId) {

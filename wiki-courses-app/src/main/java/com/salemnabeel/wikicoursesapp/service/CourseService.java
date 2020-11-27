@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
+import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoEdit;
 import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
@@ -54,14 +55,14 @@ public class CourseService {
             throw new ResourceNotFoundException("classification resource not found.");
         }
 
+        Classification classification = classificationRepository.findById(classificationId).get();
+
         Long lecturerId = courseDtoNew.getLecturerId();
 
         if (lecturerRepository.findById(lecturerId).isEmpty()) {
 
             throw new ResourceNotFoundException("lecturer resource not found.");
         }
-
-        Classification classification = classificationRepository.findById(classificationId).get();
 
         Lecturer lecturer = lecturerRepository.findById(lecturerId).get();
 
@@ -82,6 +83,52 @@ public class CourseService {
         course.setLanguage(courseDtoNew.getLanguage());
 
         course.setIsActive(true);
+
+        return CourseMapper.entityToDto(courseRepository.save(course));
+    }
+
+    public CourseDtoView updateCourseInfoById(Long courseId, CourseDtoEdit courseDtoEdit) {
+
+        if (courseRepository.findById(courseId).isEmpty()) {
+
+            throw new ResourceNotFoundException("course resource not found.");
+        }
+
+        Course course = courseRepository.findById(courseId).get();
+
+        Long classificationId = courseDtoEdit.getClassificationId();
+
+        if (classificationRepository.findById(classificationId).isEmpty()) {
+
+            throw new ResourceNotFoundException("classification resource not found.");
+        }
+
+        Classification classification = classificationRepository.findById(classificationId).get();
+
+        Long lecturerId = courseDtoEdit.getLecturerId();
+
+        if (lecturerRepository.findById(lecturerId).isEmpty()) {
+
+            throw new ResourceNotFoundException("lecturer resource not found.");
+        }
+
+        Lecturer lecturer = lecturerRepository.findById(lecturerId).get();
+
+        course.setTitle(courseDtoEdit.getTitle());
+
+        course.setSourceUrl(courseDtoEdit.getSourceUrl());
+
+        course.setClassification(classification);
+
+        course.setDescription(courseDtoEdit.getDescription());
+
+        course.setCoverImageLink(courseDtoEdit.getCoverImageLink());
+
+        course.setLecturer(lecturer);
+
+        course.setLanguage(courseDtoEdit.getLanguage());
+
+        course.setIsActive(courseDtoEdit.getIsActive());
 
         return CourseMapper.entityToDto(courseRepository.save(course));
     }

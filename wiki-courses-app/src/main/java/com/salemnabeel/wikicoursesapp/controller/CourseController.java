@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
+import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoEdit;
 import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoView;
 import com.salemnabeel.wikicoursesapp.service.CourseService;
@@ -31,5 +32,12 @@ public class CourseController {
     public CourseDtoView createNewCourse(@RequestBody CourseDtoNew courseDtoNewRequest) {
 
         return courseService.createNewCourse(courseDtoNewRequest);
+    }
+
+    @PutMapping("/edit-course/{course-id}")
+    public CourseDtoView updateCourseInfoById(@PathVariable("course-id") Long courseId,
+                                              @RequestBody CourseDtoEdit courseDtoEditRequest) {
+
+        return courseService.updateCourseInfoById(courseId, courseDtoEditRequest);
     }
 }
