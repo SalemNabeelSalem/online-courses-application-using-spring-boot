@@ -12,6 +12,7 @@ import com.salemnabeel.wikicoursesapp.repository.ClassificationRepository;
 import com.salemnabeel.wikicoursesapp.repository.CourseRepository;
 import com.salemnabeel.wikicoursesapp.repository.LecturerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -131,5 +132,19 @@ public class CourseService {
         course.setIsActive(courseDtoEdit.getIsActive());
 
         return CourseMapper.entityToDto(courseRepository.save(course));
+    }
+
+    public ResponseEntity deleteCourseById(Long courseId) {
+
+        if (courseRepository.findById(courseId).isEmpty()) {
+
+            throw new ResourceNotFoundException("course resource not found.");
+        }
+
+        Course course = courseRepository.findById(courseId).get();
+
+        courseRepository.delete(course);
+
+        return ResponseEntity.ok().build();
     }
 }

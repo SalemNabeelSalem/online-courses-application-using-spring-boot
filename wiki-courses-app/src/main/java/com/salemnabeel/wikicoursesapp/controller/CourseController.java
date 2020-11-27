@@ -5,6 +5,7 @@ import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoNew;
 import com.salemnabeel.wikicoursesapp.dto.course.CourseDtoView;
 import com.salemnabeel.wikicoursesapp.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +40,11 @@ public class CourseController {
                                               @RequestBody CourseDtoEdit courseDtoEditRequest) {
 
         return courseService.updateCourseInfoById(courseId, courseDtoEditRequest);
+    }
+
+    @DeleteMapping("/delete-course/{course-id}")
+    public ResponseEntity deleteCourseById(@PathVariable("course-id") Long courseId) {
+
+        return courseService.deleteCourseById(courseId);
     }
 }
