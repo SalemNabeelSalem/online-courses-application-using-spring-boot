@@ -23,4 +23,13 @@ public class TagService {
 
         return TagMapper.entityToDto(tagsList);
     }
+
+    public List<TagDtoView> getAllActiveTags() {
+
+        List<Tag> tagsList = tagRepository.getAllActiveTags();
+
+        tagsList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
+
+        return  TagMapper.entityToDto(tagsList);
+    }
 }

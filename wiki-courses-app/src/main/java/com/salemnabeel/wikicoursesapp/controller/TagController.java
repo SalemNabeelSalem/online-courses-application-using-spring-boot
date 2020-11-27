@@ -1,6 +1,5 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
-import com.salemnabeel.wikicoursesapp.dto.section.SectionDtoView;
 import com.salemnabeel.wikicoursesapp.dto.tag.TagDtoView;
 import com.salemnabeel.wikicoursesapp.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +20,11 @@ public class TagController {
     public List<TagDtoView> getAllTags() {
 
         return tagService.getAllTags();
+    }
+
+    @GetMapping("/active-tags")
+    public List<TagDtoView> getAllActiveTags() {
+
+        return tagService.getAllActiveTags();
     }
 }
