@@ -42,6 +42,21 @@ public class ClassificationService {
         return ClassificationMapper.entityToDto(classificationsList);
     }
 
+    public List<ClassificationDtoView> getAllActiveClassificationsBySectionId(Long sectionId) {
+
+        if (sectionRepository.findById(sectionId).isEmpty()) {
+
+            throw new ResourceNotFoundException("section resource not found.");
+        }
+
+        List<Classification> classificationsList = classificationRepository
+                .getAllActiveClassificationsBySectionId(sectionId);
+
+        classificationsList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
+
+        return ClassificationMapper.entityToDto(classificationsList);
+    }
+
     public ClassificationDtoView createNewClassification(ClassificationDtoNew classificationDtoNew) {
 
         Long sectionId = classificationDtoNew.getSectionId();

@@ -29,6 +29,13 @@ public class ClassificationController {
         return classificationService.getAllActiveClassifications();
     }
 
+    @GetMapping("/active-classifications/{section-id}")
+    public List<ClassificationDtoView> getAllActiveClassificationsBySectionId(
+            @PathVariable("section-id") Long sectionId) {
+
+        return classificationService.getAllActiveClassificationsBySectionId(sectionId);
+    }
+
     @PostMapping("/add-classification")
     public ClassificationDtoView createNewClassification(@RequestBody ClassificationDtoNew classificationDtoNewRequest) {
 
