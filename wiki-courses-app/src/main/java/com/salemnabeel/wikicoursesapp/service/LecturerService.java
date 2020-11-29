@@ -1,21 +1,31 @@
 package com.salemnabeel.wikicoursesapp.service;
 
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerStatisticsDto;
 import com.salemnabeel.wikicoursesapp.mapper.LecturerMapper;
 import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
 import com.salemnabeel.wikicoursesapp.exception.ResourceNotFoundException;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.repository.LecturerRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LecturerService {
 
     @Autowired
     private LecturerRepository lecturerRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<LecturerDtoView> getAllLecturers() {
 
@@ -80,5 +90,19 @@ public class LecturerService {
         lecturerRepository.delete(lecturer);
 
         return ResponseEntity.ok().build();
+    }
+
+    public LecturerStatisticsDto getLecturerStatics() {
+
+        List<Object[]> lectureStatics = lecturerRepository.getLecturerStatics()
+                .orElse(new ArrayList<>());
+
+        BigInteger totalLecturer = (BigInteger) lectureStatics.get(0)[0];
+
+        BigInteger activeLecturers = (BigInteger) lectureStatics.get(0)[1];
+
+        BigInteger notActiveLecturers = (BigInteger) lectureStatics.get(0)[2];
+
+        return new LecturerStatisticsDto(totalLecturer, activeLecturers, notActiveLecturers);
     }
 }

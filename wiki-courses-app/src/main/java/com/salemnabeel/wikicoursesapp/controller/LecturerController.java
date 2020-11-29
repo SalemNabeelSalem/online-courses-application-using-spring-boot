@@ -1,6 +1,7 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
 import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerStatisticsDto;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,11 @@ public class LecturerController {
     public ResponseEntity deleteLecturerById(@PathVariable("lecturer-id") Long lecturerId) {
 
         return lecturerService.deleteLecturerById(lecturerId);
+    }
+
+    @GetMapping("/lecturer-statics")
+    public LecturerStatisticsDto getLecturerStatics() {
+
+        return lecturerService.getLecturerStatics();
     }
 }
