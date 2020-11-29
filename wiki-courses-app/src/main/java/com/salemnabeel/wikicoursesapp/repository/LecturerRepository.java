@@ -18,9 +18,11 @@ public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
     @Query(value = "SELECT * FROM lecturers WHERE id = :lecturerId AND is_active = 1", nativeQuery = true)
     List<Lecturer> getActiveLecturerById(@Param("lecturerId") Long lecturerId);
 
-    @Query(value = "SELECT \n" +
-            "\t(SELECT COUNT(*) FROM lecturers ) AS total_lecturer, \n" +
-            "    (SELECT COUNT(*) FROM lecturers WHERE is_active = 1) AS active_lecturers,\n" +
-            "\t(SELECT COUNT(*) FROM lecturers WHERE is_active = 0) AS not_active_lecturers", nativeQuery = true)
+    @Query(value = "SELECT\n" +
+            "      (SELECT COUNT(*) FROM lecturers ) AS total_lecturer,\n" +
+            "      (SELECT COUNT(*) FROM lecturers WHERE is_active = 1) AS active_lecturers,\n" +
+            "      (SELECT COUNT(*) FROM lecturers WHERE is_active = 0) AS not_active_lecturers,\n" +
+            "      (SELECT COUNT(*) FROM lecturers WHERE gender = 'M') AS male_lecturers,\n" +
+            "      (SELECT COUNT(*) FROM lecturers WHERE gender = 'F') AS female_lecturers", nativeQuery = true)
     Optional<List<Object[]>> getLecturerStatics();
 }

@@ -11,9 +11,13 @@ import java.math.BigInteger;
 @AllArgsConstructor
 public class LecturerStatisticsDto {
 
-    private BigInteger totalLecturer;
+    private BigInteger totalLecturers;
 
     private BigInteger activeLecturers;
 
     private BigInteger notActiveLecturers;
+
+    private BigInteger maleLecturers;
+
+    private BigInteger femaleLecturers;
 }

@@ -97,12 +97,18 @@ public class LecturerService {
         List<Object[]> lectureStatics = lecturerRepository.getLecturerStatics()
                 .orElse(new ArrayList<>());
 
-        BigInteger totalLecturer = (BigInteger) lectureStatics.get(0)[0];
+        BigInteger totalLecturers = (BigInteger) lectureStatics.get(0)[0];
 
         BigInteger activeLecturers = (BigInteger) lectureStatics.get(0)[1];
 
         BigInteger notActiveLecturers = (BigInteger) lectureStatics.get(0)[2];
 
-        return new LecturerStatisticsDto(totalLecturer, activeLecturers, notActiveLecturers);
+        BigInteger maleLecturers = (BigInteger) lectureStatics.get(0)[3];
+
+        BigInteger femaleLecturers = (BigInteger) lectureStatics.get(0)[4];
+
+        return new LecturerStatisticsDto(totalLecturers, activeLecturers, notActiveLecturers,
+                maleLecturers, femaleLecturers
+        );
     }
 }
