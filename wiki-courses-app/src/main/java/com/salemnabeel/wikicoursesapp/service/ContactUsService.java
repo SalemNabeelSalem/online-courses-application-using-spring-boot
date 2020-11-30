@@ -42,9 +42,10 @@ public class ContactUsService {
     public List<ImprovedFaqAnswer> getAllImprovedFaqAnswers() {
 
         List<ImprovedFaqAnswer> improvedFaqAnswers = contactUsRepository.getAllImprovedFaqAnswers().stream()
+            .sorted((s1, s2) -> s2.getId().compareTo(s1.getId()))
             .map(obj1 -> this.modelMapper.map(obj1, ImprovedFaqAnswer.class)
         ).collect(Collectors.toList());
 
-        return improvedFaqAnswers;
+    return improvedFaqAnswers;
     }
 }
