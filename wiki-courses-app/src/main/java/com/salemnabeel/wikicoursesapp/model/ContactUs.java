@@ -36,6 +36,6 @@ public class ContactUs extends AuditModel {
     @Column(name = "message_answer", length = 500)
     private String messageAnswer;
 
-    @Column(name = "is_readed", nullable = false)
-    private Boolean isReaded;
+    @Column(name = "is_publish", nullable = false)
+    private Boolean isPublish;
 }

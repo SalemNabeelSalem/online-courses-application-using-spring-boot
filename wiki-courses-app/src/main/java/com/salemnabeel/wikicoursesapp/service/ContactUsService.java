@@ -1,12 +1,15 @@
 package com.salemnabeel.wikicoursesapp.service;
 
 import com.salemnabeel.wikicoursesapp.dto.ContactUs.ContactUsDtoNew;
-import com.salemnabeel.wikicoursesapp.dto.ContactUs.ContactUsDtoView;
+import com.salemnabeel.wikicoursesapp.dto.ContactUs.ImprovedFaqAnswer;
 import com.salemnabeel.wikicoursesapp.model.ContactUs;
 import com.salemnabeel.wikicoursesapp.repository.ContactUsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactUsService {
@@ -17,7 +20,7 @@ public class ContactUsService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ContactUsDtoView createNewContactUsMessage(ContactUsDtoNew contactUsDtoNew) {
+    public ContactUsDtoNew createNewContactUsMessage(ContactUsDtoNew contactUsDtoNew) {
 
         ContactUs contactUs = new ContactUs();
 
@@ -29,14 +32,19 @@ public class ContactUsService {
 
         contactUs.setMessageAnswer("not answer it yet.");
 
-        contactUs.setIsReaded(false);
+        contactUs.setIsPublish(false);
 
         contactUsRepository.save(contactUs);
 
-        ContactUsDtoView contactUsDtoView = this.modelMapper.map(
-            contactUsRepository.save(contactUs), ContactUsDtoView.class
-        );
+        return this.modelMapper.map(contactUsRepository.save(contactUs), ContactUsDtoNew.class);
+    }
 
-        return contactUsDtoView;
+    public List<ImprovedFaqAnswer> getAllImprovedFaqAnswers() {
+
+        List<ImprovedFaqAnswer> improvedFaqAnswers = contactUsRepository.getAllImprovedFaqAnswers().stream()
+            .map(obj1 -> this.modelMapper.map(obj1, ImprovedFaqAnswer.class)
+        ).collect(Collectors.toList());
+
+        return improvedFaqAnswers;
     }
 }
