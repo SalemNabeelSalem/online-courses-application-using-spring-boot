@@ -24,5 +24,3 @@ logging:
       hibernate:
         SQL: DEBUG
         type: TRACE
-
-# TODO: Using The Spring Boot Actuator

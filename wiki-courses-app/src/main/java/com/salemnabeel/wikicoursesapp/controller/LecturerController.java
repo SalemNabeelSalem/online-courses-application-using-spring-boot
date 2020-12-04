@@ -1,6 +1,7 @@
 package com.salemnabeel.wikicoursesapp.controller;
 
 import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerLoginDto;
 import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerStatisticsDto;
 import com.salemnabeel.wikicoursesapp.model.Lecturer;
 import com.salemnabeel.wikicoursesapp.service.LecturerService;
@@ -53,5 +54,11 @@ public class LecturerController {
     public LecturerStatisticsDto getLecturerStatics() {
 
         return lecturerService.getLecturerStatics();
+    }
+
+    @PostMapping("/lecturer-login")
+    public LecturerDtoView handleLecturerLogin(@RequestBody LecturerLoginDto lecturerLoginDtoRequest) {
+
+        return lecturerService.handleLecturerLogin(lecturerLoginDtoRequest);
     }
 }

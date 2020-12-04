@@ -25,4 +25,7 @@ public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
             "      (SELECT COUNT(*) FROM lecturers WHERE gender = 'M') AS male_lecturers,\n" +
             "      (SELECT COUNT(*) FROM lecturers WHERE gender = 'F') AS female_lecturers", nativeQuery = true)
     Optional<List<Object[]>> getLecturerStatics();
+
+    @Query(value = "SELECT * FROM lecturers WHERE full_name = :fullName AND email = :email", nativeQuery = true)
+    Optional<Lecturer> handleLecturerLogin(@Param("fullName") String fullName, @Param("email") String email);
 }

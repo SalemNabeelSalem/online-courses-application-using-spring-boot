@@ -1,5 +1,6 @@
 package com.salemnabeel.wikicoursesapp.service;
 
+import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerLoginDto;
 import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerStatisticsDto;
 import com.salemnabeel.wikicoursesapp.mapper.LecturerMapper;
 import com.salemnabeel.wikicoursesapp.dto.lecturer.LecturerDtoView;
@@ -110,5 +111,16 @@ public class LecturerService {
         return new LecturerStatisticsDto(totalLecturers, activeLecturers, notActiveLecturers,
                 maleLecturers, femaleLecturers
         );
+    }
+
+    public LecturerDtoView handleLecturerLogin(LecturerLoginDto lecturerLoginDto) {
+
+        String lecturerFullName = lecturerLoginDto.getFullName();
+
+        String lecturerEmail = lecturerLoginDto.getEmail();
+
+        Lecturer lecturer = lecturerRepository.handleLecturerLogin(lecturerFullName, lecturerEmail).orElse(new Lecturer());
+
+        return this.modelMapper.map(lecturer, LecturerDtoView.class);
     }
 }
