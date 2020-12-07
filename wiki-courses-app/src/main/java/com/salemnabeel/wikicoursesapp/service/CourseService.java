@@ -75,6 +75,15 @@ public class CourseService {
         return CourseMapper.entityToDto(coursesList);
     }
 
+    public List<CourseDtoView> getAllCoursesByLecturerId(Long lecturerId) {
+
+        List<Course> coursesList = courseRepository.getAllCoursesByLecturerId(lecturerId);
+
+        coursesList.sort((s1, s2) -> s2.getId().compareTo(s1.getId()));
+
+        return CourseMapper.entityToDto(coursesList);
+    }
+
     public CourseDtoView createNewCourse(CourseDtoNew courseDtoNew) {
 
         Long classificationId = courseDtoNew.getClassificationId();
@@ -175,4 +184,6 @@ public class CourseService {
 
         return ResponseEntity.ok().build();
     }
+
+
 }
