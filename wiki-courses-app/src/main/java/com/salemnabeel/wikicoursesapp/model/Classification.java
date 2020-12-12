@@ -19,8 +19,8 @@ public class Classification extends AuditModel {
     private Long id;
 
     @NotNull
-    @Size(max = 20, min = 2)
-    @Column(length = 20, unique = true, nullable = false)
+    @Size(max = 40, min = 2)
+    @Column(length = 40, unique = true, nullable = false)
     private String title;
 
     @NotNull
