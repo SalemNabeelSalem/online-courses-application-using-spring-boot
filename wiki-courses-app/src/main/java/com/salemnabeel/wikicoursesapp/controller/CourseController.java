@@ -35,6 +35,13 @@ public class CourseController {
         return courseService.getAllCoursesByLecturerId(lecturerId);
     }
 
+    @GetMapping("/{lecturer-id}/active-courses")
+    public List<CourseDtoView> getAllActiveCoursesByLecturerId(
+            @PathVariable("lecturer-id") Long lecturerId) {
+
+        return courseService.getAllActiveCoursesByLecturerId(lecturerId);
+    }
+
     @GetMapping("/{classification-id}/all-active-courses")
     public List<CourseDtoView> getAllActiveCoursesByClassificationId(
             @PathVariable("classification-id") Long classificationId) {
