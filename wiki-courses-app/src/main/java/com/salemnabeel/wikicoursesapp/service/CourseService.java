@@ -41,6 +41,11 @@ public class CourseService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public CourseDtoView getCourseById(Long courseId) {
+
+        return CourseMapper.entityToDto(courseRepository.findById(courseId).orElse(new Course()));
+    }
+
     public List<CourseDtoView> getAllCourses() {
 
         List<Course> coursesList = courseRepository.findAll();

@@ -17,6 +17,12 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @GetMapping("/course/{course-id}")
+    public CourseDtoView getCourseById(@PathVariable("course-id") Long courseId) {
+
+        return courseService.getCourseById(courseId);
+    }
+
     @GetMapping("/all-courses")
     public List<CourseDtoView> getAllCourses() {
 
