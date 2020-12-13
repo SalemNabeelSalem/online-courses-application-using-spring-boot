@@ -1,4 +1,4 @@
-package com.salemnabeel.wikicoursesapp.dto.ContactUs;
+package com.salemnabeel.wikicoursesapp.dto.Faq;
 
 import lombok.Data;
 

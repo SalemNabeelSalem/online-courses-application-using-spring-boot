@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "contact_us")
-public class ContactUs extends AuditModel {
+public class Faq extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
