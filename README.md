@@ -1,2 +1,2 @@
-# collage-services-app-wiki-courses
-This Is My Final Graduation Project At The Aden University - Faculty Of Engineering - Information Technology Department.
+# online-courses-application-using-spring-boot
+This is the back-end of my final graduation project at the university of aden using java spring-boot, it's a free online courses applications.
